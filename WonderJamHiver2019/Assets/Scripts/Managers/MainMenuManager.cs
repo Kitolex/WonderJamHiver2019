@@ -27,14 +27,20 @@ public class MainMenuManager : MonoBehaviour
     {
         MainMenuPanel.SetActive(false);
         RejoindrePartiePanel.SetActive(false);
+
         CreationPartiePanel.SetActive(true);
+
+
     }
 
     public void RejoindrePartie()
     {
         MainMenuPanel.SetActive(false);
         CreationPartiePanel.SetActive(false);
+
         RejoindrePartiePanel.SetActive(true);
+
+
     }
 
     public void Quitter()
