@@ -52,7 +52,6 @@ public class BaseIndicatorBehaviour : MonoBehaviour, EventListener<LocalPlayerSt
 
 
         Vector3 iconPosition = Camera.main.WorldToScreenPoint(teamBase.transform.position) - new Vector3((Screen.width / 2f), (Screen.height / 2f),0);
-        Debug.Log("Avant : " + iconPosition);
         iconPosition.x = Mathf.Clamp(iconPosition.x, -(Screen.width/2f) + 35, (Screen.width/2f) - 35);
         iconPosition.y = Mathf.Clamp(iconPosition.y, -(Screen.height / 2f) + 35, (Screen.height / 2f) - 35);
 
