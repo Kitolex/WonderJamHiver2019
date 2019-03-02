@@ -22,15 +22,9 @@ public class PromptBehaviour : MonoBehaviour
         if (player)
         {
             if (player.realTeam == 0)
-            {
-                Debug.Log("A");
                 sr.sprite = AButton;
-            }
             else
-            {
-                Debug.Log("B");
                 sr.sprite = BButton;
-            }
         }
     }
 

@@ -3,8 +3,10 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Networking;
 
-public class LobbyManager : MonoBehaviour
+public class LobbyManager : NetworkBehaviour
 {
+
+    public Animator UILaunch;
 
     private NetworkManager networkManager;
 
@@ -25,9 +27,8 @@ public class LobbyManager : MonoBehaviour
     {
         if (countReadyPlayer==countNeededPlayer)
         {
-            //TODO : afficher panel
-
-            if (Input.GetKeyDown(KeyCode.L))
+           
+            if (Input.GetButtonDown("Start"))
             {
                 Debug.Log("szdefghjk");
                 foreach(GameObject go in GameObject.FindGameObjectsWithTag("Player")) {
@@ -52,10 +53,14 @@ public class LobbyManager : MonoBehaviour
     public void AddReadyPlayer()
     {
         countReadyPlayer++;
+        if (countReadyPlayer == countNeededPlayer && isServer)
+            UILaunch.SetTrigger("Display");
     }
 
     public void RemoveReadyPlayer()
     {
+        if (countReadyPlayer == countNeededPlayer && isServer)
+            UILaunch.SetTrigger("Hide");
         countReadyPlayer--;
     }
 }
