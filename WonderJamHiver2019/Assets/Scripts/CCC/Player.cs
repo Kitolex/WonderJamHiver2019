@@ -219,6 +219,15 @@ public class Player : NetworkBehaviour
         isReady = true;
     }
 
+    [ClientRpc]
+    public void RpcPrepareToEndGame(int scoreTeam1, int scoreTeam2)
+    {
+        PlayerState.singleton.inGame = false;
+        PlayerState.singleton.inEndGame = true;
+        if(isLocalPlayer)
+            CmdIsReady();
+    }
+
     [Command]
     private void CmdSpawnMeInMyBase(int team)
     {
@@ -230,6 +239,7 @@ public class Player : NetworkBehaviour
     {
         this.gameObject.GetComponent<Rigidbody>().velocity = Vector3.zero;
         this.transform.position = position;
+        isReady = false;
     }
 
     [Command]

@@ -107,6 +107,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   team: 0
   currentPression: 0
+  neededPressionToWin: 100
 --- !u!114 &7138514533509756782
 MonoBehaviour:
   m_ObjectHideFlags: 0

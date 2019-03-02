@@ -9,6 +9,9 @@ public class PlayerState : MonoBehaviour
     public int myTeam;
 
     public bool inGame;
+    public bool inEndGame;
+    public int scoreTeam1;
+    public int scoreTeam2;
 
     public Base myBase;
 
@@ -25,6 +28,7 @@ public class PlayerState : MonoBehaviour
     {
         myTeam = 0;
         inGame = false;
+        inEndGame = false;
     }
 
     // Update is called once per frame
