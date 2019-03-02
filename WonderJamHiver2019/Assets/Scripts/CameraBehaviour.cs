@@ -11,6 +11,7 @@ public class CameraBehaviour : MonoBehaviour
     public float Distance;
     public float Angle;
     public Vector3 CameraOffset;
+    public float SmoothSpeed = 0.1f;
 
     public bool IsFollowingPlayer = true;
 
@@ -28,10 +29,16 @@ public class CameraBehaviour : MonoBehaviour
         if (!player)
             return;
 
-        Vector3 test = new Vector3(0, 0, -Distance);
-        test = Quaternion.AngleAxis(Angle, Vector3.right) * test;
+        if (!IsFollowingPlayer)
+            return;
 
-        transform.position = player.transform.position + test + CameraOffset;
+        Vector3 desiredPosition = new Vector3(0, 0, -Distance);
+        desiredPosition = Quaternion.AngleAxis(Angle, Vector3.right) * desiredPosition;
+        desiredPosition = player.transform.position + desiredPosition + CameraOffset;
+
+        Vector3 smoothPostion = Vector3.Lerp(transform.position, desiredPosition, SmoothSpeed);
+
+        transform.position = smoothPostion;
         transform.rotation = Quaternion.Euler(new Vector3(Angle, 0, 0));
     }
 
