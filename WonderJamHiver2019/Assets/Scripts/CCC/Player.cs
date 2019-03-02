@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Networking;
+using Events;
 
 public class Player : NetworkBehaviour
 {
@@ -13,6 +14,8 @@ public class Player : NetworkBehaviour
 
     [SyncVar]
     public int ressourceCount;
+
+    public int maxRessourceCount = 100;
 
     [SyncVar]
     public int team;
@@ -42,7 +45,8 @@ public class Player : NetworkBehaviour
 
     public override void OnStartLocalPlayer()
     {
-        Camera.main.GetComponent<CameraBehaviour>().AssignPlayer(gameObject); 
+        Camera.main.GetComponent<CameraBehaviour>().AssignPlayer(gameObject);
+        EventManager.TriggerEvent<LocalPlayerStartEvent>(new LocalPlayerStartEvent(gameObject));
     }
 
     // Update is called once per frame
