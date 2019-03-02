@@ -8,6 +8,9 @@ public class TeamLobbyManager : NetworkBehaviour
 
     public int teamLobby;
 
+    [SyncVar]
+    public int nbInThisTeam;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -26,8 +29,17 @@ public class TeamLobbyManager : NetworkBehaviour
         {
             if (!other.GetComponent<Player>().isLocalPlayer)
                 return;
-            other.GetComponent<Player>().enterTeamZone = true;
-            other.GetComponent<Player>().CmdSetTeam( this.teamLobby);
+            other.GetComponent<Player>().CmdSetTeam(this.teamLobby);
+        }
+    }
+
+    private void OnTriggerStay(Collider other)
+    {
+        if (other.tag.Equals("Player"))
+        {
+            if (!other.GetComponent<Player>().isLocalPlayer)
+                return;
+            other.GetComponent<Player>().enterTeamZone = nbInThisTeam < 3;
         }
     }
 

@@ -23,7 +23,6 @@ public class Player : NetworkBehaviour
     [SyncVar]
     public int realTeam;
 
-//    [SyncVar]
     public bool isReady;
 
     public bool enterTeamZone;
@@ -171,7 +170,10 @@ public class Player : NetworkBehaviour
         this.realTeam = team;
         RpcSetActivePlayer(false);
         GameObject.FindGameObjectWithTag("LobbyManager").GetComponent<LobbyManager>().AddReadyPlayer();
-        GetComponentInChildren<SpriteRenderer>().material.SetInt("_Team", team);
+        if(team == 1)
+            LobbyManager.singleton.teamLobbyManager1.nbInThisTeam++;
+        if(team == 2)
+            LobbyManager.singleton.teamLobbyManager2.nbInThisTeam++;
     }
 
     [Command]
@@ -180,8 +182,10 @@ public class Player : NetworkBehaviour
         this.realTeam = 0;
         RpcSetActivePlayer(true);
         GameObject.FindGameObjectWithTag("LobbyManager").GetComponent<LobbyManager>().RemoveReadyPlayer();
-        GetComponentInChildren<SpriteRenderer>().material.SetInt("_Team", team);
-
+        if(team == 1)
+            LobbyManager.singleton.teamLobbyManager1.nbInThisTeam--;
+        if(team == 2)
+            LobbyManager.singleton.teamLobbyManager2.nbInThisTeam--;
     }
 
     [Command]
@@ -217,6 +221,15 @@ public class Player : NetworkBehaviour
         isReady = true;
     }
 
+    [ClientRpc]
+    public void RpcPrepareToEndGame(int scoreTeam1, int scoreTeam2)
+    {
+        PlayerState.singleton.inGame = false;
+        PlayerState.singleton.inEndGame = true;
+        if(isLocalPlayer)
+            CmdIsReady();
+    }
+
     [Command]
     private void CmdSpawnMeInMyBase(int team)
     {
@@ -228,6 +241,7 @@ public class Player : NetworkBehaviour
     {
         this.gameObject.GetComponent<Rigidbody>().velocity = Vector3.zero;
         this.transform.position = position;
+        isReady = false;
     }
 
     [Command]

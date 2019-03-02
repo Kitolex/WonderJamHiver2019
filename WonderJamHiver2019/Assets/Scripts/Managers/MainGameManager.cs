@@ -1,8 +1,9 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Networking;
 
-public class MainGameManager : MonoBehaviour
+public class MainGameManager : NetworkBehaviour
 {
     public static MainGameManager singleton;
 
@@ -16,6 +17,9 @@ public class MainGameManager : MonoBehaviour
     private int nextSpawnTeam1;
     private int nextSpawnTeam2;
 
+    public int countNeededPlayer = 2;
+    private NetworkManager networkManager;
+
     void Awake()
     {
         if(null == MainGameManager.singleton){
@@ -26,6 +30,7 @@ public class MainGameManager : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        networkManager = GameObject.FindGameObjectWithTag("NetworkManager").GetComponent<NetworkManager>();
         nextSpawnTeam1 = 0;
         nextSpawnTeam2 = 0;
     }
@@ -33,7 +38,36 @@ public class MainGameManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        
+        if(!isServer)
+            return;
+
+        if(teamBase1.currentPression >= teamBase1.neededPressionToWin)
+        {
+            // TEAM 1 WIN
+            foreach(GameObject go in GameObject.FindGameObjectsWithTag("Player")) {
+              go.GetComponent<Player>().RpcPrepareToEndGame(teamBase1.currentPression, teamBase2.currentPression);
+            }
+        }
+
+        else if(teamBase2.currentPression >= teamBase2.neededPressionToWin)
+        {
+            // TEAM 2 WIN
+            foreach(GameObject go in GameObject.FindGameObjectsWithTag("Player")) {
+              go.GetComponent<Player>().RpcPrepareToEndGame(teamBase1.currentPression, teamBase2.currentPression);
+            }
+        }
+
+        int countReadyPlayerForChangeScene = 0;
+
+        foreach(GameObject go in GameObject.FindGameObjectsWithTag("Player")) {
+            if(go.GetComponent<Player>().isReady)
+                countReadyPlayerForChangeScene++;
+        }
+
+        if(countReadyPlayerForChangeScene == countNeededPlayer)
+        {
+            networkManager.ServerChangeScene("SceneFin");
+        }
     }
 
     public Vector3 GetSpawnPosition(int team)

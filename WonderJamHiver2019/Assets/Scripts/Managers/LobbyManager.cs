@@ -5,15 +5,25 @@ using UnityEngine.Networking;
 
 public class LobbyManager : NetworkBehaviour
 {
+    public static LobbyManager singleton;
 
     public Animator UILaunch;
 
     private NetworkManager networkManager;
 
+    public TeamLobbyManager teamLobbyManager1;
+    public TeamLobbyManager teamLobbyManager2;
 
     private int countReadyPlayer;
 
     public int countNeededPlayer;
+
+    void Awake()
+    {
+        if(null == LobbyManager.singleton){
+            LobbyManager.singleton = this;
+        }
+    }
 
     // Start is called before the first frame update
     void Start()
