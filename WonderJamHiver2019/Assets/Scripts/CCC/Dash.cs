@@ -33,6 +33,8 @@ public class Dash : NetworkBehaviour
     Movement movement;
     Player player;
 
+    Animator animator;
+
 
     void Start()
     {
@@ -49,6 +51,11 @@ public class Dash : NetworkBehaviour
             Debug.LogWarning("Pas de Player script sur le joueur");
 
         isDashing = false;
+
+        animator = gameObject.GetComponent<Animator>();
+        if (!animator)
+            Debug.LogWarning("Pas d'animator sur le joueur");
+
     }
 
 
@@ -83,6 +90,7 @@ public class Dash : NetworkBehaviour
         {
             this.dashEffectPercentage = Mathf.Clamp( (inputTimer - Time.time) / InputReactivationCooldowwn , minDashEffect, maxDashEffect);
             collision.gameObject.GetComponent<Dash>().RpcCasseToi((collision.transform.position - this.transform.position).normalized, dashEffectPercentage);
+            RpcTriggerContactAnimation();
         }
     }
 
@@ -114,6 +122,7 @@ public class Dash : NetworkBehaviour
     void CmdStopDashing()
     {
         this.isDashing = false;
+        RpcTriggerStopDashAnimation();
     }
 
     [ClientRpc]
@@ -122,6 +131,8 @@ public class Dash : NetworkBehaviour
         Vector3 direction = rb.velocity.normalized;
         rb.velocity = Vector3.zero;
         rb.AddForce(direction * DashSpeed);
+        animator.SetTrigger("startDashing");
+        animator.SetBool("isDoneDashing", false);
     }
 
     [ClientRpc]
@@ -132,4 +143,23 @@ public class Dash : NetworkBehaviour
         //Debug.Log(direction * ImpactForce * dashEffectPercentage);
         movement.isStunedFor(StunedDuration);
     }
+
+    [ClientRpc]
+    void RpcTriggerContactAnimation()
+    {
+        animator.SetBool("isDoneDashing", true);
+        animator.SetBool("isDoneDashingWithoutContact", false);
+
+    }
+
+    [ClientRpc]
+    void RpcTriggerStopDashAnimation()
+    {
+        animator.SetBool("isDoneDashing", false);
+
+        animator.SetBool("isDoneDashingWithoutContact", true);
+    }
+
+    
+
 }
