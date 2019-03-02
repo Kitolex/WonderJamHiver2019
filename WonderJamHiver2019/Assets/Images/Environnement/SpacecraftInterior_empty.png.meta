@@ -1,7 +1,9 @@
 fileFormatVersion: 2
 guid: 71cfaedded3dacc409fb5bcc3c1da3de
 TextureImporter:
-  fileIDToRecycleName: {}
+  fileIDToRecycleName:
+    21300000: SpacecraftInterior_empty_0
+    21300002: SpacecraftInterior_empty_1
   externalObjects: {}
   serializedVersion: 9
   mipmaps:
@@ -45,7 +47,7 @@ TextureImporter:
   spriteMeshType: 1
   alignment: 0
   spritePivot: {x: 0.5, y: 0.5}
-  spritePixelsToUnits: 100
+  spritePixelsToUnits: 1000
   spriteBorder: {x: 0, y: 0, z: 0, w: 0}
   spriteGenerateFallbackPhysicsShape: 1
   alphaUsage: 1
@@ -82,11 +84,51 @@ TextureImporter:
     androidETC2FallbackOverride: 0
   spriteSheet:
     serializedVersion: 2
-    sprites: []
+    sprites:
+    - serializedVersion: 2
+      name: SpacecraftInterior_empty_0
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 182
+        width: 1918
+        height: 744
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: d403300d284639745bd03ebaa1273131
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: SpacecraftInterior_empty_1
+      rect:
+        serializedVersion: 2
+        x: 476
+        y: 182
+        width: 968
+        height: 744
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 1889be16193bd194594632bab4c28483
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
     outline: []
     physicsShape: []
     bones: []
-    spriteID: 
+    spriteID: 4744eace3658335428140d8433a74201
     vertices: []
     indices: 
     edges: []
