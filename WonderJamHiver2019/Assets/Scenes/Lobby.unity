@@ -389,7 +389,7 @@ Transform:
   m_GameObject: {fileID: 968413298}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 2, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 1.5, y: 1.5, z: 1.5}
   m_Children: []
   m_Father: {fileID: 734070205}
   m_RootOrder: 0
@@ -405,7 +405,7 @@ SphereCollider:
   m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
-  m_Radius: 2.19
+  m_Radius: 1.5
   m_Center: {x: 0, y: -1.17, z: 0}
 --- !u!212 &968413301
 SpriteRenderer:
@@ -446,7 +446,7 @@ SpriteRenderer:
   m_SortingOrder: 0
   m_Sprite: {fileID: 21300000, guid: 907b1fcfffa0dcb47af63c30bde32539, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
-  m_FlipX: 0
+  m_FlipX: 1
   m_FlipY: 0
   m_DrawMode: 0
   m_Size: {x: 1, y: 1}
@@ -467,6 +467,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 70495f2d3f5d8274b92888ea09041330, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  AButton: {fileID: 21300000, guid: 907b1fcfffa0dcb47af63c30bde32539, type: 3}
+  BButton: {fileID: 21300000, guid: 4de32da904c65c348a5b498e812207ef, type: 3}
 --- !u!4 &1119562257 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 8468619453501543853, guid: 3c1a348b06b0fa34facd9b0088a47a10,
@@ -570,7 +572,7 @@ Transform:
   m_GameObject: {fileID: 1244707465}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 2, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 1.5, y: 1.5, z: 1.5}
   m_Children: []
   m_Father: {fileID: 1119562257}
   m_RootOrder: 0
@@ -586,7 +588,7 @@ SphereCollider:
   m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
-  m_Radius: 2.19
+  m_Radius: 1.5
   m_Center: {x: 0, y: -1.17, z: 0}
 --- !u!212 &1244707468
 SpriteRenderer:
@@ -627,7 +629,7 @@ SpriteRenderer:
   m_SortingOrder: 0
   m_Sprite: {fileID: 21300000, guid: 907b1fcfffa0dcb47af63c30bde32539, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
-  m_FlipX: 0
+  m_FlipX: 1
   m_FlipY: 0
   m_DrawMode: 0
   m_Size: {x: 1, y: 1}
@@ -648,6 +650,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 70495f2d3f5d8274b92888ea09041330, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  AButton: {fileID: 21300000, guid: 907b1fcfffa0dcb47af63c30bde32539, type: 3}
+  BButton: {fileID: 21300000, guid: 4de32da904c65c348a5b498e812207ef, type: 3}
 --- !u!1 &1687448729
 GameObject:
   m_ObjectHideFlags: 0

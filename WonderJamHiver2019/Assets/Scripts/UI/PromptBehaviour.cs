@@ -6,6 +6,9 @@ using UnityEngine.Networking;
 public class PromptBehaviour : MonoBehaviour
 {
     SpriteRenderer sr;
+    Player player;
+    public Sprite AButton;
+    public Sprite BButton;
 
     void Start()
     {
@@ -16,6 +19,19 @@ public class PromptBehaviour : MonoBehaviour
     private void Update()
     {
         transform.LookAt(Camera.main.transform);
+        if (player)
+        {
+            if (player.realTeam == 0)
+            {
+                Debug.Log("A");
+                sr.sprite = AButton;
+            }
+            else
+            {
+                Debug.Log("B");
+                sr.sprite = BButton;
+            }
+        }
     }
 
     private void OnTriggerEnter(Collider other)
@@ -24,6 +40,7 @@ public class PromptBehaviour : MonoBehaviour
 
         if(p && p.isLocalPlayer)
         {
+            player = p;
             sr.enabled = true;
         }
     }
@@ -35,6 +52,7 @@ public class PromptBehaviour : MonoBehaviour
         if (p && p.isLocalPlayer)
         {
             sr.enabled = false;
+            player = null;
         }
     }
 }
