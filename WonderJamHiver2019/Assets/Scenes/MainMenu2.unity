@@ -470,7 +470,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 1
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: 
+  m_Text: localhost
 --- !u!1 &571137207
 GameObject:
   m_ObjectHideFlags: 0
@@ -2001,7 +2001,7 @@ PrefabInstance:
     - target: {fileID: 4752684619711947394, guid: 68b72d1cf99304f4eb0b7e3180b914d1,
         type: 3}
       propertyPath: m_OnlineScene
-      value: MainGame2
+      value: Lobby
       objectReference: {fileID: 0}
     - target: {fileID: 4752684619711947395, guid: 68b72d1cf99304f4eb0b7e3180b914d1,
         type: 3}
