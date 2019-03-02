@@ -1836,7 +1836,7 @@ PrefabInstance:
     - target: {fileID: 4752684619711947394, guid: 68b72d1cf99304f4eb0b7e3180b914d1,
         type: 3}
       propertyPath: m_OnlineScene
-      value: Lobby
+      value: MainGame2
       objectReference: {fileID: 0}
     - target: {fileID: 4752684619711947395, guid: 68b72d1cf99304f4eb0b7e3180b914d1,
         type: 3}
