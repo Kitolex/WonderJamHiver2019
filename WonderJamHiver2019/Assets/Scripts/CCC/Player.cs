@@ -6,6 +6,10 @@ using UnityEngine.Networking;
 
 public class Player : NetworkBehaviour
 {
+    public int maxRessources = 5;
+    public int nbRessourceLostByHit = 1;
+
+    public GameObject ressourcePrefab;
 
     [SyncVar]
     public int ressourceCount;
@@ -94,7 +98,7 @@ public class Player : NetworkBehaviour
     [ClientRpc]
     public void RpcSetActivePlayer(bool active)
     {
-        this.gameObject.GetComponent<SpriteRenderer>().enabled = active;
+        this.gameObject.GetComponentInChildren<SpriteRenderer>().enabled = active;
         this.gameObject.GetComponent<Movement>().enabled = active;
         this.gameObject.GetComponent<Dash>().enabled = active;
         this.gameObject.GetComponent<Rigidbody>().useGravity = active;
@@ -127,5 +131,16 @@ public class Player : NetworkBehaviour
     {
         this.gameObject.GetComponent<Rigidbody>().velocity = Vector3.zero;
         this.transform.position = position;
+    }
+
+    [Command]
+    public void CmdDropRessource()
+    {
+        if (ressourceCount <= 0)
+            return;
+
+        GameObject instance = Instantiate(ressourcePrefab);
+        instance.transform.position = this.transform.position;
+        NetworkServer.Spawn(instance);
     }
 }

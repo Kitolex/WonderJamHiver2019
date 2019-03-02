@@ -31,7 +31,7 @@ public class Movement : NetworkBehaviour
         if (!rb)
             Debug.LogWarning("Pas de rigidbody sur le joueur");
 
-        spriteRenderer = GetComponent<SpriteRenderer>();
+        spriteRenderer = GetComponentInChildren<SpriteRenderer>();
 
         animator = gameObject.GetComponent<Animator>();
         if (!animator)

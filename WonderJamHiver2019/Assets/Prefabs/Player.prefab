@@ -235,9 +235,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f4aef54afdfa1684e9bfc1743c0ed354, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  maxRessources: 5
+  nbRessourceLostByHit: 1
+  ressourcePrefab: {fileID: 5399573792267783274, guid: 7b2d419060e470142bf5b1f476ba3ce6,
+    type: 3}
   ressourceCount: 0
   team: 0
   realTeam: 0
+  isReady: 0
   enterTeamZone: 0
 --- !u!114 &7563536602254062439
 MonoBehaviour:
