@@ -597,7 +597,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 5
+  m_RootOrder: 6
   m_LocalEulerAnglesHint: {x: 50, y: -30, z: 0}
 --- !u!1001 &6974651684564552857
 PrefabInstance:
@@ -669,7 +669,7 @@ PrefabInstance:
     - target: {fileID: 6974651683134788948, guid: 937e277479408c64ab6847f967b2fb66,
         type: 3}
       propertyPath: countNeededPlayer
-      value: 2
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 937e277479408c64ab6847f967b2fb66, type: 3}

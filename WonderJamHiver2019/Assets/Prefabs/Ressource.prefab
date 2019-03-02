@@ -14,6 +14,7 @@ GameObject:
   - component: {fileID: 2151616070343688815}
   - component: {fileID: 716517241627212104}
   - component: {fileID: 5485634609596447262}
+  - component: {fileID: 1321360303353991635}
   m_Layer: 0
   m_Name: Ressource
   m_TagString: Untagged
@@ -80,6 +81,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 99024ef355ac11c4a8eca06088a78787, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  nbPressionGive: 10
 --- !u!54 &2151616070343688815
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -152,9 +154,21 @@ CapsuleCollider:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 5399573792267783274}
   m_Material: {fileID: 0}
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_Enabled: 1
   m_Radius: 0.18
   m_Height: 0.48
   m_Direction: 1
   m_Center: {x: 0, y: 0, z: 0}
+--- !u!114 &1321360303353991635
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5399573792267783274}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b275fc9ffab88fb48bbeabdee8c94c8b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
