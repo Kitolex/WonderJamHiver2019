@@ -31,6 +31,15 @@ public class Movement : NetworkBehaviour
         if (!rb)
             Debug.LogWarning("Pas de rigidbody sur le joueur");
 
+        spriteRenderer = GetComponentInChildren<SpriteRenderer>();
+        
+        /*
+        animator = gameObject.GetComponent<Animator>();
+        if (!animator)
+            Debug.LogWarning("Pas d'animator sur le joueur");
+
+        */
+
     }
 
     // Update is called once per frame

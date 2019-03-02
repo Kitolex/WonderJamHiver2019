@@ -136,8 +136,8 @@ public class Dash : NetworkBehaviour
     {
         rb.velocity = Vector3.zero;
         rb.AddForce(direction * ImpactForce * dashEffectPercentage);
-        //Debug.Log(direction * ImpactForce * dashEffectPercentage);
         movement.isStunedFor(StunedDuration);
+        player.CmdDropRessource();
     }
 
     [ClientRpc]

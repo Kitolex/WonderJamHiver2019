@@ -7,6 +7,10 @@ using Events;
 
 public class Player : NetworkBehaviour
 {
+    public int maxRessources = 5;
+    public int nbRessourceLostByHit = 1;
+
+    public GameObject ressourcePrefab;
 
     [SyncVar]
     public int ressourceCount;
@@ -37,6 +41,7 @@ public class Player : NetworkBehaviour
     public int nbRessourcePerInteraction = 1;
 
     public SpriteRenderer spriteRenderer;
+    CapsuleCollider capsuleCollider;
 
     // Start is called before the first frame update
     void Start()
@@ -49,6 +54,8 @@ public class Player : NetworkBehaviour
         {
             CmdSpawnMeInMyBase(PlayerState.singleton.myTeam);
         }
+
+        capsuleCollider = GetComponent<CapsuleCollider>();
     }
 
     public override void OnStartLocalPlayer()
@@ -166,7 +173,7 @@ public class Player : NetworkBehaviour
     [ClientRpc]
     public void RpcSetActivePlayer(bool active)
     {
-        spriteRenderer.enabled = active;
+        this.gameObject.GetComponentInChildren<SpriteRenderer>().enabled = active;
         this.gameObject.GetComponent<Movement>().enabled = active;
         this.gameObject.GetComponent<Dash>().enabled = active;
         this.gameObject.GetComponent<Rigidbody>().useGravity = active;
@@ -223,5 +230,23 @@ public class Player : NetworkBehaviour
     private void CmdStopTakeRessourceFromBase()
     {
         isTakingRessource = false;
+    }
+
+    [Command]
+    public void CmdDropRessource()
+    {
+        if (ressourceCount <= ressourcePrefab.GetComponent<Ressource>().nbPressionGive)
+            return;
+
+
+        GameObject instance = Instantiate(ressourcePrefab);
+        instance.transform.position = this.transform.position;
+        if (capsuleCollider)
+        {
+            instance.transform.position += new Vector3(0, capsuleCollider.height, 0);
+        }
+        NetworkServer.Spawn(instance);
+        
+        this.ressourceCount -= ressourcePrefab.GetComponent<Ressource>().nbPressionGive;
     }
 }

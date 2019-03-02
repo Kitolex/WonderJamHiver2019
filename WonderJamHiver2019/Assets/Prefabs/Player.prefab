@@ -255,11 +255,19 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f4aef54afdfa1684e9bfc1743c0ed354, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  ressourceCount: 0
+  maxRessources: 5
+  nbRessourceLostByHit: 1
+  ressourcePrefab: {fileID: 5399573792267783274, guid: 93360399bba6f714493c210ffcf0a6e9,
+    type: 3}
+  ressourceCount: 50
+  maxRessourceCount: 100
   team: 0
   realTeam: 0
   isReady: 0
   enterTeamZone: 0
+  isInBaseZone: 0
+  delaisInteractionBase: 0.1
+  nbRessourcePerInteraction: 1
   spriteRenderer: {fileID: 3522750688452588107}
 --- !u!114 &7563536602254062439
 MonoBehaviour:

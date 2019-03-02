@@ -16,7 +16,7 @@ GameObject:
   - component: {fileID: 5485634609596447262}
   - component: {fileID: 1321360303353991635}
   m_Layer: 0
-  m_Name: Ressource
+  m_Name: RessourceWhithJump
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -84,7 +84,7 @@ MonoBehaviour:
   nbPressionGive: 10
   disableTimeOnCreation: 1
   collectable: 0
-  jumpAtSpawn: 0
+  jumpAtSpawn: 1
   aleaLatteralSpawnForce: 50
   upForce: 250
 --- !u!54 &2151616070343688815
