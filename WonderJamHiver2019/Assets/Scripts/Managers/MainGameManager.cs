@@ -33,7 +33,15 @@ public class MainGameManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        
+        if(teamBase1.currentPression >= teamBase1.neededPressionToWin)
+        {
+            // TEAM 1 WIN
+        }
+
+        else if(teamBase2.currentPression >= teamBase2.neededPressionToWin)
+        {
+            // TEAM 2 WIN
+        }
     }
 
     public Vector3 GetSpawnPosition(int team)
