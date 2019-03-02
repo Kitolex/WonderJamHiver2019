@@ -21,6 +21,12 @@ public class Dash : NetworkBehaviour
     float startTime;
     float stopTime;
 
+    [Range(0, 1)]
+    public float minDashEffect;
+    [Range(0, 1)]
+    public float maxDashEffect;
+    float dashEffectPercentage;
+
     [SyncVar]
     public bool isDashing;
 
@@ -71,7 +77,8 @@ public class Dash : NetworkBehaviour
 
         if (this.isDashing && collision.gameObject.tag.Equals("Player"))
         {
-            collision.gameObject.GetComponent<Dash>().RpcCasseToi((collision.transform.position - this.transform.position).normalized);
+            this.dashEffectPercentage = Mathf.Clamp( (inputTimer - Time.time) / InputReactivationCooldowwn , minDashEffect, maxDashEffect);
+            collision.gameObject.GetComponent<Dash>().RpcCasseToi((collision.transform.position - this.transform.position).normalized, dashEffectPercentage);
         }
     }
 
@@ -114,10 +121,11 @@ public class Dash : NetworkBehaviour
     }
 
     [ClientRpc]
-    void RpcCasseToi(Vector3 direction)
+    void RpcCasseToi(Vector3 direction, float dashEffectPercentage)
     {
         rb.velocity = Vector3.zero;
-        rb.AddForce(direction * ImpactForce);
+        rb.AddForce(direction * ImpactForce * dashEffectPercentage);
+        //Debug.Log(direction * ImpactForce * dashEffectPercentage);
         movement.isStunedFor(StunedDuration);
     }
 }
