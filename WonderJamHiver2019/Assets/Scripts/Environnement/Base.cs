@@ -10,6 +10,8 @@ public class Base : NetworkBehaviour
     [SyncVar]
     public int currentPression;
 
+    public int neededPressionToWin = 1000;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -28,7 +30,7 @@ public class Base : NetworkBehaviour
         {
             Player player = other.gameObject.GetComponent<Player>();
             
-            if(!player.isLocalPlayer)
+            if(!player.isLocalPlayer || PlayerState.singleton.myTeam != this.team)
                 return;
 
             ShowUICanInteractWithBase();
@@ -42,7 +44,7 @@ public class Base : NetworkBehaviour
         {
             Player player = other.gameObject.GetComponent<Player>();
             
-            if(!player.isLocalPlayer)
+            if(!player.isLocalPlayer || PlayerState.singleton.myTeam != this.team)
                 return;
 
             HideUICanInteractWithBase();

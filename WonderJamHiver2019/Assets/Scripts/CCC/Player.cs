@@ -53,6 +53,7 @@ public class Player : NetworkBehaviour
         if(isLocalPlayer && PlayerState.singleton.inGame)
         {
             CmdSpawnMeInMyBase(PlayerState.singleton.myTeam);
+            CmdSetTeam(PlayerState.singleton.myTeam);
         }
 
         capsuleCollider = GetComponent<CapsuleCollider>();
@@ -123,7 +124,14 @@ public class Player : NetworkBehaviour
 
                 this.ressourceCount -= ressourceInThisAction;
 
-                PlayerState.singleton.myBase.currentPression += ressourceInThisAction;
+                if(this.team == 1)
+                {
+                    MainGameManager.singleton.teamBase1.currentPression += ressourceInThisAction;
+                }
+                if(this.team == 2)
+                {
+                    MainGameManager.singleton.teamBase2.currentPression += ressourceInThisAction;
+                }
             }
         }
 
@@ -133,11 +141,20 @@ public class Player : NetworkBehaviour
             {
                 timerInteractionBase = Time.time + delaisInteractionBase;
 
-                int ressourceInThisAction = Mathf.Min(PlayerState.singleton.myBase.currentPression, nbRessourcePerInteraction);
+                int ressourceInThisAction = 0;
+
+                if(this.team == 1)
+                {
+                    ressourceInThisAction = Mathf.Min(MainGameManager.singleton.teamBase1.currentPression, nbRessourcePerInteraction);
+                    MainGameManager.singleton.teamBase1.currentPression -= ressourceInThisAction;
+                }
+                if(this.team == 2)
+                {
+                    ressourceInThisAction = Mathf.Min(MainGameManager.singleton.teamBase2.currentPression, nbRessourcePerInteraction);
+                    MainGameManager.singleton.teamBase2.currentPression -= ressourceInThisAction;
+                }
 
                 this.ressourceCount += ressourceInThisAction;
-
-                PlayerState.singleton.myBase.currentPression -= ressourceInThisAction;
             }
         }
     }
