@@ -14,7 +14,7 @@ public class Movement : NetworkBehaviour
 
     Rigidbody rb;
 
-    bool canMove = true;
+    public bool canMove = true;
 
    
 

@@ -12,8 +12,9 @@ GameObject:
   - component: {fileID: 4614687179111478192}
   - component: {fileID: 4614687179111478199}
   - component: {fileID: 4614687179111478198}
-  - component: {fileID: 4614687179111478194}
   - component: {fileID: 2058768584153113169}
+  - component: {fileID: 4614687179111478194}
+  - component: {fileID: 7908129235611861842}
   - component: {fileID: 6198601486201529221}
   - component: {fileID: 681403862856853939}
   m_Layer: 0
@@ -115,6 +116,19 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 112
   m_CollisionDetection: 0
+--- !u!114 &2058768584153113169
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4614687179111478197}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f4aef54afdfa1684e9bfc1743c0ed354, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ID: 0
 --- !u!114 &4614687179111478194
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -129,7 +143,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   movementSpeed: 5
   acceleration: 6
---- !u!114 &2058768584153113169
+--- !u!114 &7908129235611861842
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -138,10 +152,13 @@ MonoBehaviour:
   m_GameObject: {fileID: 4614687179111478197}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f4aef54afdfa1684e9bfc1743c0ed354, type: 3}
+  m_Script: {fileID: 11500000, guid: e30871af13135d9498f604a814b99607, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  ID: 0
+  DashDistance: 1
+  DashForce: 20
+  DashCooldown: 1
+  ImpactForce: 50
 --- !u!114 &6198601486201529221
 MonoBehaviour:
   m_ObjectHideFlags: 0
