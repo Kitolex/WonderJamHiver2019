@@ -53,17 +53,14 @@ public class BaseIndicatorBehaviour : MonoBehaviour, EventListener<LocalPlayerSt
         if (orientation.magnitude < DistanceAffichage && isVisible)
             HideIndicator();
 
-
-
         if (!isVisible)
-            return;
-        
+            return;        
         
         rTransf.rotation = Quaternion.Euler(0, 0, angle);
 
-
         Vector3 iconPosition = Camera.main.WorldToScreenPoint(PlayerState.singleton.myBase.transform.position) - new Vector3((Screen.width / 2f), (Screen.height / 2f),0);
-        iconPosition.x = Mathf.Clamp(iconPosition.x, -(Screen.width/2f) + 35, (Screen.width/2f) - 35);
+        Debug.Log(iconPosition);
+        iconPosition.x = Mathf.Clamp(iconPosition.x, -(Screen.width / 2f) + 35, (Screen.width / 2f) - 35);
         iconPosition.y = Mathf.Clamp(iconPosition.y, -(Screen.height / 2f) + 35, (Screen.height / 2f) - 35);
 
         rTransf.localPosition = iconPosition;
