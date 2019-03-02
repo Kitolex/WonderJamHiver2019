@@ -34,11 +34,7 @@ public class MainMenuManager : MonoBehaviour
 
         CreationPartiePanel.SetActive(true);
 
-
         networkManager.StartHost();
-
-        
-
     }
 
     public void RejoindrePartie()
@@ -47,8 +43,6 @@ public class MainMenuManager : MonoBehaviour
         CreationPartiePanel.SetActive(false);
 
         RejoindrePartiePanel.SetActive(true);
-
-
     }
 
     public void StartClient()
@@ -56,6 +50,14 @@ public class MainMenuManager : MonoBehaviour
         Debug.Log("ssssss");
         networkManager.networkAddress = this.adresseServer.text;
         networkManager.StartClient();
+    }
+
+    public void Retour()
+    {
+        CreationPartiePanel.SetActive(false);
+        RejoindrePartiePanel.SetActive(false);
+
+        MainMenuPanel.SetActive(true);
     }
 
     public void Quitter()
