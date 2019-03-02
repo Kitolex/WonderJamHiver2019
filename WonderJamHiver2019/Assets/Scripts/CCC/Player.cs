@@ -24,6 +24,18 @@ public class Player : NetworkBehaviour
 
     public bool enterTeamZone;
 
+    public bool isInBaseZone;
+
+    [SyncVar]
+    private bool isGivingRessource;
+
+    [SyncVar]
+    private bool isTakingRessource;
+
+    private float timerInteractionBase;
+    public float delaisInteractionBase = 0.1f;
+    public int nbRessourcePerInteraction = 1;
+
     public SpriteRenderer spriteRenderer;
 
     // Start is called before the first frame update
@@ -64,6 +76,53 @@ public class Player : NetworkBehaviour
                 CmdResetRealTeam();
                 PlayerState.singleton.myTeam = 0;
             }
+        }
+
+        if(isInBaseZone)
+        {
+            if (Input.GetButtonDown("Fire3") && !isGivingRessource && !isTakingRessource)
+            {
+                Debug.Log("Start Give Ressource to Base");
+                CmdStartGiveRessourceToBase();
+            }
+            else if (Input.GetButtonUp("Fire3") && isGivingRessource && !isTakingRessource)
+            {
+                Debug.Log("Stop Give Ressource to Base");
+                CmdStopGiveRessourceToBase();
+            }
+
+            if (Input.GetButtonDown("Fire4") && !isGivingRessource && !isTakingRessource)
+            {
+                Debug.Log("Start Take Ressource from Base");
+                CmdStartTakeRessourceFromBase();
+            }
+            else if (Input.GetButtonUp("Fire4") && !isGivingRessource && isTakingRessource)
+            {
+                Debug.Log("Stop Take Ressource from Base");
+                CmdStopTakeRessourceFromBase();
+            }
+        }
+
+        if(!isServer)
+            return;
+
+        if(isGivingRessource)
+        {
+            if(Time.time > timerInteractionBase)
+            {
+                timerInteractionBase = Time.time + delaisInteractionBase;
+
+                int ressourceInThisAction = Mathf.Min(this.ressourceCount, nbRessourcePerInteraction);
+
+                this.ressourceCount -= ressourceInThisAction;
+
+                
+            }
+        }
+
+        if(isTakingRessource)
+        {
+            
         }
     }
 
@@ -131,5 +190,29 @@ public class Player : NetworkBehaviour
     {
         this.gameObject.GetComponent<Rigidbody>().velocity = Vector3.zero;
         this.transform.position = position;
+    }
+
+    [Command]
+    private void CmdStartGiveRessourceToBase()
+    {
+        isGivingRessource = true;
+    }
+
+    [Command]
+    private void CmdStopGiveRessourceToBase()
+    {
+        isGivingRessource = false;
+    }
+
+    [Command]
+    private void CmdStartTakeRessourceFromBase()
+    {
+        isTakingRessource = true;
+    }
+
+    [Command]
+    private void CmdStopTakeRessourceFromBase()
+    {
+        isTakingRessource = false;
     }
 }

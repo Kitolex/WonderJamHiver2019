@@ -29,9 +29,9 @@ public class Ressource : NetworkBehaviour
 
         if (other.tag.Equals("Player"))
         {
-
-            other.GetComponent<Player>().ressourceCount += nbPressionGive;
-            other.GetComponent<Player>().RpcCollectRessource();
+            Player player = other.GetComponent<Player>();
+            player.ressourceCount = Mathf.Min(player.ressourceCount + nbPressionGive, player.maxRessourceCount);
+            player.RpcCollectRessource();
             RpcDestroyRessource();
         }
     }

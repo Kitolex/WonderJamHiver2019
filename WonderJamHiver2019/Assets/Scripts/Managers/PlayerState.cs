@@ -10,6 +10,8 @@ public class PlayerState : MonoBehaviour
 
     public bool inGame;
 
+    public Base myBase;
+
     void Awake()
     {
         if(null == PlayerState.singleton){

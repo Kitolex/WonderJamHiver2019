@@ -6,6 +6,8 @@ using UnityEngine.Networking;
 public class Base : NetworkBehaviour
 {
     public int team;
+
+    [SyncVar]
     public int currentPression;
 
     // Start is called before the first frame update
@@ -29,7 +31,44 @@ public class Base : NetworkBehaviour
             if(!player.isLocalPlayer)
                 return;
 
-            
+            ShowUICanInteractWithBase();
+            player.isInBaseZone = true;
         }
     }
+
+    private void OnTriggerExit(Collider other)
+    {
+        if (other.tag.Equals("Player"))
+        {
+            Player player = other.gameObject.GetComponent<Player>();
+            
+            if(!player.isLocalPlayer)
+                return;
+
+            HideUICanInteractWithBase();
+            player.isInBaseZone = false;
+        }
+    }
+
+    private void ShowUICanInteractWithBase()
+    {
+
+    }
+
+    private void HideUICanInteractWithBase()
+    {
+
+    }
+
+  /*  [ClientRpc]
+    public void RpcAddRessource(int nbRessource)
+    {
+        
+    }
+
+    [ClientRpc]
+    public void RpcDecreaseRessource(int nbRessource)
+    {
+        
+    }*/
 }
