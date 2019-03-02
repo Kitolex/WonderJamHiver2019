@@ -16,7 +16,8 @@ public class Movement : NetworkBehaviour
 
     bool canMove = true;
 
-   
+    public Animator animator;
+
 
     // Start is called before the first frame update
     void Start()
@@ -29,13 +30,25 @@ public class Movement : NetworkBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (!isLocalPlayer)
+       if (!isLocalPlayer)
         {
             return;
         }           
 
         GetAxis();
         ApplyMovement();
+    }
+
+     void FixedUpdate()
+    {
+        if(horizontalAxis > 0)
+        {
+            animator.SetBool("IsMovingRight", true);
+        }
+        if (horizontalAxis < 0)
+        {
+            animator.SetBool("IsMovingRight", false);
+        }
     }
 
     void GetAxis()
@@ -48,6 +61,8 @@ public class Movement : NetworkBehaviour
     {
         if (!canMove)
             return;
+
+        animator.SetFloat("Speed", Mathf.Abs(horizontalAxis) + Mathf.Abs(verticalAxis));
 
         Vector2 movement = new Vector2(horizontalAxis, verticalAxis);
         movement.Normalize();
