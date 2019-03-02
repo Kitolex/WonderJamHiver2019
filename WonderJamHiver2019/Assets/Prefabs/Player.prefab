@@ -257,9 +257,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   maxRessources: 5
   nbRessourceLostByHit: 1
-  ressourcePrefab: {fileID: 5399573792267783274, guid: 7b2d419060e470142bf5b1f476ba3ce6,
+  ressourcePrefab: {fileID: 5350609903132453208, guid: 14c18dd41de28c849b6a8008a4475399,
     type: 3}
-  ressourceCount: 0
+  ressourceCount: 50
+  maxRessourceCount: 100
   team: 0
   realTeam: 0
   isReady: 0

@@ -29,6 +29,7 @@ public class Player : NetworkBehaviour
     public bool enterTeamZone;
 
     public SpriteRenderer spriteRenderer;
+    CapsuleCollider capsuleCollider;
 
     // Start is called before the first frame update
     void Start()
@@ -41,6 +42,8 @@ public class Player : NetworkBehaviour
         {
             CmdSpawnMeInMyBase(PlayerState.singleton.myTeam);
         }
+
+        capsuleCollider = GetComponent<CapsuleCollider>();
     }
 
     public override void OnStartLocalPlayer()
@@ -140,11 +143,19 @@ public class Player : NetworkBehaviour
     [Command]
     public void CmdDropRessource()
     {
-        if (ressourceCount <= 0)
+        if (ressourceCount <= ressourcePrefab.GetComponent<Ressource>().nbPressionGive)
             return;
+
 
         GameObject instance = Instantiate(ressourcePrefab);
         instance.transform.position = this.transform.position;
+        if (capsuleCollider)
+        {
+            instance.transform.position += new Vector3(0, capsuleCollider.height, 0);
+        }
         NetworkServer.Spawn(instance);
+        
+        this.ressourceCount -= ressourcePrefab.GetComponent<Ressource>().nbPressionGive;
+
     }
 }
