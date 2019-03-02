@@ -16,6 +16,9 @@ EditorBuildSettings:
     guid: db2a04ad103c6734ebeae3204519e19f
   - enabled: 1
     path: Assets/Scenes/Lobby.unity
+    guid: 683be8bfbffa8d840bcbbbb2888eba0e
+  - enabled: 0
+    path: Assets/Scenes/TrueLobby.unity
     guid: 69867fe8662fe4a47a8cf65aa4200898
   - enabled: 1
     path: Assets/Scenes/SceneFin.unity
