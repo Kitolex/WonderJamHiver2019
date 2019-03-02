@@ -19,15 +19,17 @@ public class Ressource : NetworkBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        Debug.Log("Trigger");
+
         if (!isServer)
             return;
 
-        Debug.Log("server");
+
 
         if (other.tag.Equals("Player"))
         {
-            Debug.Log("tag Player detect");
+
+            other.GetComponent<Player>().ressourceCount++;
+            other.GetComponent<Player>().RpcCollectRessource();
             RpcDestroyRessource();
         }
     }
@@ -35,7 +37,6 @@ public class Ressource : NetworkBehaviour
     [ClientRpc]
     private void RpcDestroyRessource()
     {
-        Debug.Log("RpcDestroyRessource");
         Destroy(this.gameObject);
     }
 

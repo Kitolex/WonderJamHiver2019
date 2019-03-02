@@ -12,10 +12,10 @@ GameObject:
   - component: {fileID: 4614687179111478192}
   - component: {fileID: 4614687179111478199}
   - component: {fileID: 4614687179111478198}
-  - component: {fileID: 4614687179111478194}
-  - component: {fileID: 2058768584153113169}
   - component: {fileID: 6198601486201529221}
   - component: {fileID: 681403862856853939}
+  - component: {fileID: 3580329815158650118}
+  - component: {fileID: 7563536602254062439}
   m_Layer: 0
   m_Name: Player
   m_TagString: Player
@@ -115,33 +115,6 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 112
   m_CollisionDetection: 0
---- !u!114 &4614687179111478194
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4614687179111478197}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 0aa5448ffb56ad1459a278b1d41a59db, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  movementSpeed: 5
-  acceleration: 6
---- !u!114 &2058768584153113169
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4614687179111478197}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f4aef54afdfa1684e9bfc1743c0ed354, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  ID: 0
 --- !u!114 &6198601486201529221
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -197,3 +170,30 @@ MonoBehaviour:
   m_SnapThreshold: 5
   m_InterpolateRotation: 1
   m_InterpolateMovement: 1
+--- !u!114 &3580329815158650118
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4614687179111478197}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f4aef54afdfa1684e9bfc1743c0ed354, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ID: 0
+--- !u!114 &7563536602254062439
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4614687179111478197}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0aa5448ffb56ad1459a278b1d41a59db, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  movementSpeed: 5
+  acceleration: 6

@@ -5,17 +5,26 @@ using UnityEngine.Networking;
 
 public class Player : NetworkBehaviour
 {
-    public int ID;
+
+    [SyncVar]
+    public int ressourceCount;
+
 
     // Start is called before the first frame update
     void Start()
     {
-        
+
     }
 
     // Update is called once per frame
     void Update()
     {
         
+    }
+
+    [ClientRpc]
+    public void RpcCollectRessource()
+    {
+        //EFFET VISUEL
     }
 }
