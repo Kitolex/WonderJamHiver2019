@@ -10,6 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 2527119622995910639}
   - component: {fileID: 3522750688452588107}
+  - component: {fileID: 327317419595634538}
   m_Layer: 0
   m_Name: Renderer
   m_TagString: Untagged
@@ -79,6 +80,25 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 1
+--- !u!95 &327317419595634538
+Animator:
+  serializedVersion: 3
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2358393740192817928}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 41760dc729f62b44ca55d2df74477f15, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorControllerStateOnDisable: 0
 --- !u!1 &4614687179111478197
 GameObject:
   m_ObjectHideFlags: 0
@@ -95,7 +115,6 @@ GameObject:
   - component: {fileID: 681403862856853939}
   - component: {fileID: 3580329815158650118}
   - component: {fileID: 7563536602254062439}
-  - component: {fileID: 626013895}
   m_Layer: 0
   m_Name: Player
   m_TagString: Player
@@ -168,6 +187,7 @@ MonoBehaviour:
   minDashEffect: 0.3
   maxDashEffect: 0.8
   isDashing: 0
+  animator: {fileID: 327317419595634538}
 --- !u!114 &6198601486201529221
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -238,7 +258,9 @@ MonoBehaviour:
   ressourceCount: 0
   team: 0
   realTeam: 0
+  isReady: 0
   enterTeamZone: 0
+  spriteRenderer: {fileID: 3522750688452588107}
 --- !u!114 &7563536602254062439
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -256,25 +278,8 @@ MonoBehaviour:
   inputMinThreshold: 0.1
   minSpeedWhenInput: 0.8
   canMove: 1
---- !u!95 &626013895
-Animator:
-  serializedVersion: 3
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4614687179111478197}
-  m_Enabled: 1
-  m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 9100000, guid: 41760dc729f62b44ca55d2df74477f15, type: 2}
-  m_CullingMode: 0
-  m_UpdateMode: 0
-  m_ApplyRootMotion: 0
-  m_LinearVelocityBlending: 0
-  m_WarningMessage: 
-  m_HasTransformHierarchy: 1
-  m_AllowConstantClipSamplingOptimization: 1
-  m_KeepAnimatorControllerStateOnDisable: 0
+  animator: {fileID: 327317419595634538}
+  spriteRenderer: {fileID: 3522750688452588107}
 --- !u!1 &7507329013263145592
 GameObject:
   m_ObjectHideFlags: 0

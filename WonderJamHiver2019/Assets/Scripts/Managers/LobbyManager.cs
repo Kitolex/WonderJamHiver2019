@@ -29,6 +29,7 @@ public class LobbyManager : MonoBehaviour
 
             if (Input.GetKeyDown(KeyCode.L))
             {
+                Debug.Log("szdefghjk");
                 foreach(GameObject go in GameObject.FindGameObjectsWithTag("Player")) {
                     go.GetComponent<Player>().RpcPrepareToStartGame();
                 }

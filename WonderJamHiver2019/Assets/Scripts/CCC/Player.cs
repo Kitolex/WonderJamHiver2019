@@ -21,7 +21,7 @@ public class Player : NetworkBehaviour
 
     public bool enterTeamZone;
 
-    
+    public SpriteRenderer spriteRenderer;
 
     // Start is called before the first frame update
     void Start()
@@ -94,7 +94,7 @@ public class Player : NetworkBehaviour
     [ClientRpc]
     public void RpcSetActivePlayer(bool active)
     {
-        this.gameObject.GetComponent<SpriteRenderer>().enabled = active;
+        spriteRenderer.enabled = active;
         this.gameObject.GetComponent<Movement>().enabled = active;
         this.gameObject.GetComponent<Dash>().enabled = active;
         this.gameObject.GetComponent<Rigidbody>().useGravity = active;
