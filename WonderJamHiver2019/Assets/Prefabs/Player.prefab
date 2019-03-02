@@ -160,8 +160,10 @@ MonoBehaviour:
   DashSpeed: 300
   DashCooldown: 1
   InputReactivationCooldowwn: 0.5
-  ImpactForce: 350
+  ImpactForce: 800
   StunedDuration: 1
+  minDashEffect: 0.3
+  maxDashEffect: 0.8
   isDashing: 0
 --- !u!114 &6198601486201529221
 MonoBehaviour:
