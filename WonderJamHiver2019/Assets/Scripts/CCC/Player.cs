@@ -10,6 +10,8 @@ public class Player : NetworkBehaviour
     [SyncVar]
     public int ressourceCount;
 
+    public int maxRessourceCount = 100;
+
     [SyncVar]
     public int team;
 

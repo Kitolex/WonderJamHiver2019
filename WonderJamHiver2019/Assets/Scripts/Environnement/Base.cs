@@ -3,10 +3,11 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Networking;
 
-public class Ressource : NetworkBehaviour
+public class Base : NetworkBehaviour
 {
-    public int nbPressionGive = 10;
-    
+    public int team;
+    public int currentPression;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -21,25 +22,14 @@ public class Ressource : NetworkBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-
-        if (!isServer)
-            return;
-
-
-
         if (other.tag.Equals("Player"))
         {
+            Player player = other.gameObject.GetComponent<Player>();
+            
+            if(!player.isLocalPlayer)
+                return;
 
-            other.GetComponent<Player>().ressourceCount += nbPressionGive;
-            other.GetComponent<Player>().RpcCollectRessource();
-            RpcDestroyRessource();
+            
         }
     }
-
-    [ClientRpc]
-    private void RpcDestroyRessource()
-    {
-        Destroy(this.gameObject);
-    }
-
 }
