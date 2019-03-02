@@ -171,6 +171,7 @@ public class Player : NetworkBehaviour
         this.realTeam = team;
         RpcSetActivePlayer(false);
         GameObject.FindGameObjectWithTag("LobbyManager").GetComponent<LobbyManager>().AddReadyPlayer();
+        GetComponentInChildren<SpriteRenderer>().material.SetInt("_Team", team);
     }
 
     [Command]
@@ -179,12 +180,16 @@ public class Player : NetworkBehaviour
         this.realTeam = 0;
         RpcSetActivePlayer(true);
         GameObject.FindGameObjectWithTag("LobbyManager").GetComponent<LobbyManager>().RemoveReadyPlayer();
+        GetComponentInChildren<SpriteRenderer>().material.SetInt("_Team", team);
+
     }
 
     [Command]
     public void CmdSetTeam(int team)
     {
         this.team = team;
+        GameObject.FindGameObjectWithTag("LobbyManager").GetComponent<LobbyManager>().RemoveReadyPlayer();
+        GetComponentInChildren<SpriteRenderer>().material.SetInt("_Team", team);
     }
 
     [ClientRpc]
