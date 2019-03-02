@@ -30,7 +30,10 @@ public class Movement : NetworkBehaviour
     void Update()
     {
         if (!isLocalPlayer)
+        {
             return;
+        }           
+
         GetAxis();
         ApplyMovement();
     }
@@ -51,6 +54,6 @@ public class Movement : NetworkBehaviour
 
         float magnitude = Mathf.Lerp(rb.velocity.magnitude, movementSpeed, Time.deltaTime * acceleration);
 
-        rb.velocity = new Vector3(movement.x * magnitude,rb.velocity.y, movement.y * magnitude);
+        rb.velocity = new Vector3(movement.x * magnitude, rb.velocity.y, movement.y * magnitude);
     }
 }
