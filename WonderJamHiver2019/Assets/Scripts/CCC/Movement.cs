@@ -14,7 +14,10 @@ public class Movement : NetworkBehaviour
 
     Rigidbody rb;
 
-    bool canMove = true;
+    public bool canMove = true;
+
+    float stunTimer;
+    bool isStuned;
 
     public Animator animator;
 
@@ -37,6 +40,12 @@ public class Movement : NetworkBehaviour
 
         GetAxis();
         ApplyMovement();
+
+        if(Time.time > stunTimer && isStuned)
+        {
+            isStuned = false;
+            canMove = true;
+        }
     }
 
      void FixedUpdate()
@@ -69,6 +78,24 @@ public class Movement : NetworkBehaviour
 
         float magnitude = Mathf.Lerp(rb.velocity.magnitude, movementSpeed, Time.deltaTime * acceleration);
 
-        rb.velocity = new Vector3(movement.x * magnitude, rb.velocity.y, movement.y * magnitude);
+        //this.transform.position += new Vector3(movement.x * magnitude, rb.velocity.y, movement.y * magnitude);
+        this.rb.velocity = new Vector3(movement.x * magnitude, 0 , movement.y * magnitude);
+    }
+
+    public void disableMove()
+    {
+        canMove = false;
+    }
+
+    public void enableMove()
+    {
+        canMove = true;
+    }
+
+    public void isStunedFor(float stunedTime)
+    {
+        canMove = false;
+        isStuned = true;
+        stunTimer = Time.time + stunedTime;
     }
 }
