@@ -21,7 +21,7 @@ public class Movement : NetworkBehaviour
     float stunTimer;
     bool isStuned;
 
-    public Animator animator;
+    Animator animator;
     private SpriteRenderer spriteRenderer;
 
     // Start is called before the first frame update
@@ -32,6 +32,11 @@ public class Movement : NetworkBehaviour
             Debug.LogWarning("Pas de rigidbody sur le joueur");
 
         spriteRenderer = GetComponent<SpriteRenderer>();
+
+        animator = gameObject.GetComponent<Animator>();
+        if (!animator)
+            Debug.LogWarning("Pas d'animator sur le joueur");
+
     }
 
     // Update is called once per frame
