@@ -5,34 +5,29 @@ using UnityEngine.Networking;
 
 public class Dash : NetworkBehaviour
 {
-    public float DashDistance;
-    public float DashForce;
+    public float DashTime = 1000f;
+    public float DashSpeed;
     public float DashCooldown = 1f;
-    public float ImpactForce = 50f;
+    public float InputReactivationCooldowwn = .5f;
+    public float ImpactForce = 350f;
+
+    public float StunedDuration = 1f;
 
     float horizontalAxis;
     float verticalAxis;
 
     float cooldownTimer;
+    float inputTimer;
     float startTime;
+    float stopTime;
 
-    float distanceTraveled;
-
-    bool isDashing;
-    bool shouldKeepDashing;
-
-    List<GameObject> memoryHit;
-
-    Vector3 initialPosition;
-    Vector3 dashDirection;
-    Vector3 computedDashForce;
+    [SyncVar]
+    public bool isDashing;
 
     Rigidbody rb;
     Movement movement;
 
 
-
-    // Start is called before the first frame update
     void Start()
     {
         rb = GetComponent<Rigidbody>();
@@ -43,99 +38,86 @@ public class Dash : NetworkBehaviour
         if (!movement)
             Debug.LogWarning("Pas de movement script sur le joueur");
 
-        memoryHit = new List<GameObject>();
+        isDashing = false;
     }
 
-    // Update is called once per frame
+
+
     void Update()
     {
-        if (!isLocalPlayer)
-            return;
 
-        HandleInput();
-    }
-
-    void HandleInput()
-    {
         horizontalAxis = Input.GetAxis("Horizontal");
         verticalAxis = Input.GetAxis("Vertical");
 
+        if (!isLocalPlayer)
+            return;
+
         if (Input.GetButtonDown("Fire1"))
+        { 
             StartDash();
+        }
+
+        if (Time.time > inputTimer && this.isDashing)
+        {
+            movement.canMove = true;
+            CmdStopDashing();
+        }
     }
+
+    private void OnCollisionEnter(Collision collision)
+    {
+        if (!isServer)
+            return;
+
+        if (this.isDashing && collision.gameObject.tag.Equals("Player"))
+        {
+            collision.gameObject.GetComponent<Dash>().RpcCasseToi((collision.transform.position - this.transform.position).normalized);
+        }
+    }
+
+
 
     void StartDash()
     {
         if (Time.time < cooldownTimer)
             return;
-        if(horizontalAxis!=0 || verticalAxis!=0)
+
+        if (horizontalAxis != 0 || verticalAxis != 0)
         {
+            CmdStartDashing();
             cooldownTimer = Time.time + DashCooldown;
-            isDashing = true;
-
-            memoryHit.Clear();
-
+            inputTimer = Time.time + InputReactivationCooldowwn;
             movement.canMove = false;
 
-            StartCoroutine(DashCoroutine());
         }
-    
     }
 
-    public void StopDash()
+    [Command]
+    void CmdStartDashing()
     {
-        isDashing = false;
-        movement.canMove = true;
+        this.isDashing = true;
+        RpcImpulseDash();
     }
 
-    IEnumerator DashCoroutine()
+    [Command]
+    void CmdStopDashing()
     {
-        if(!isDashing)
-            yield break;
-
-        // we initialize our various counters and checks
-        startTime = Time.time;
-        initialPosition = this.transform.position;
-        distanceTraveled = 0;
-        shouldKeepDashing = true;
-        dashDirection = new Vector3(horizontalAxis, 0, verticalAxis).normalized;
-        computedDashForce = DashForce * dashDirection;
-
-        // we keep dashing until we've reached our target distance or until we get interrupted
-        while (distanceTraveled < DashDistance && shouldKeepDashing)
-        {
-            distanceTraveled = Vector3.Distance(initialPosition, this.transform.position);
-            rb.velocity = computedDashForce;
-            yield return null;
-        }
-
-        StopDash();
-    }
-
-    private void OnCollisionStay(Collision collision)
-    {
-        if (!isDashing)
-            return;
-
-        if (collision.gameObject.tag != "Player")
-            return;
-
-        if (!isServer)
-            return;
-
-        if (!memoryHit.Contains(collision.gameObject))
-        {
-            collision.gameObject.GetComponent<Dash>().RpcGetDashed(collision.gameObject.transform.position - transform.position);
-            memoryHit.Add(collision.gameObject);
-        }
-        
+        this.isDashing = false;
     }
 
     [ClientRpc]
-    public void RpcGetDashed(Vector3 directionImpulse)
+    void RpcImpulseDash()
     {
-        directionImpulse.Normalize();
-        rb.velocity = directionImpulse * ImpactForce;
-        Debug.Log("Test");
+        Vector3 direction = rb.velocity.normalized;
+        rb.velocity = Vector3.zero;
+        rb.AddForce(direction * DashSpeed);
+    }
+
+    [ClientRpc]
+    void RpcCasseToi(Vector3 direction)
+    {
+        rb.velocity = Vector3.zero;
+        rb.AddForce(direction * ImpactForce);
+        movement.isStunedFor(StunedDuration);
     }
 }
