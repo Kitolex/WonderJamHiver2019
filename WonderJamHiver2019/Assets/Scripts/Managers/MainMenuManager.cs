@@ -47,7 +47,6 @@ public class MainMenuManager : MonoBehaviour
 
     public void StartClient()
     {
-        Debug.Log("ssssss");
         networkManager.networkAddress = this.adresseServer.text;
         networkManager.StartClient();
     }

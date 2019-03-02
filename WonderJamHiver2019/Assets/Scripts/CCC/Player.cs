@@ -16,6 +16,9 @@ public class Player : NetworkBehaviour
     [SyncVar]
     public int realTeam;
 
+//    [SyncVar]
+    public bool isReady;
+
     public bool enterTeamZone;
 
     
@@ -26,6 +29,11 @@ public class Player : NetworkBehaviour
         team = 0;
         realTeam = 0;
         enterTeamZone = false;
+
+        if(isLocalPlayer && PlayerState.singleton.inGame)
+        {
+            CmdSpawnMeInMyBase(PlayerState.singleton.myTeam);
+        }
     }
 
     public override void OnStartLocalPlayer()
@@ -43,12 +51,14 @@ public class Player : NetworkBehaviour
                 Debug.Log("Ajout Equipe");
                 this.realTeam = -1; // set dirty pour éviter le spam, sera ecrasé par le serveur
                 CmdSetRealTeam(team);
+                PlayerState.singleton.myTeam = team;
             }
 
             if ((Input.GetButtonDown("Fire2") || Input.GetKeyDown(KeyCode.R)) && this.realTeam != 0)
             {
                 Debug.Log("Suprresion Equipe");
                 CmdResetRealTeam();
+                PlayerState.singleton.myTeam = 0;
             }
         }
     }
@@ -88,8 +98,34 @@ public class Player : NetworkBehaviour
         this.gameObject.GetComponent<Movement>().enabled = active;
         this.gameObject.GetComponent<Dash>().enabled = active;
         this.gameObject.GetComponent<Rigidbody>().useGravity = active;
+        this.gameObject.GetComponent<Rigidbody>().velocity = Vector3.zero;
         this.gameObject.GetComponent<Collider>().enabled = active;
     }
 
+    [ClientRpc]
+    public void RpcPrepareToStartGame()
+    {
+        PlayerState.singleton.inGame = true;
+        if(isLocalPlayer)
+            CmdIsReady();
+    }
 
+    [Command]
+    private void CmdIsReady()
+    {
+        isReady = true;
+    }
+
+    [Command]
+    private void CmdSpawnMeInMyBase(int team)
+    {
+        RpcSpawnAtPosition(MainGameManager.singleton.GetSpawnPosition(team));
+    }
+
+    [ClientRpc]
+    private void RpcSpawnAtPosition(Vector3 position)
+    {
+        this.gameObject.GetComponent<Rigidbody>().velocity = Vector3.zero;
+        this.transform.position = position;
+    }
 }

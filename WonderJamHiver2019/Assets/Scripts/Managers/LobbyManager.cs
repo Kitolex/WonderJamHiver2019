@@ -25,11 +25,23 @@ public class LobbyManager : MonoBehaviour
     {
         if (countReadyPlayer==countNeededPlayer)
         {
-
             //TODO : afficher panel
-            Debug.Log("Ready");
 
             if (Input.GetKeyDown(KeyCode.L))
+            {
+                foreach(GameObject go in GameObject.FindGameObjectsWithTag("Player")) {
+                    go.GetComponent<Player>().RpcPrepareToStartGame();
+                }
+            }
+
+            int countReadyPlayerForChangeScene = 0;
+
+            foreach(GameObject go in GameObject.FindGameObjectsWithTag("Player")) {
+                if(go.GetComponent<Player>().isReady)
+                    countReadyPlayerForChangeScene++;
+            }
+
+            if(countReadyPlayerForChangeScene == countNeededPlayer)
             {
                 networkManager.ServerChangeScene("MainGame2");
             }
