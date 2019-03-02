@@ -9,6 +9,10 @@ public class MainGameManager : MonoBehaviour
     public List<Transform> team1StartPositions;
     public List<Transform> team2StartPositions;
 
+    
+    public Base teamBase1; // A renseigner dans la scene
+    public Base teamBase2; // A renseigner dans la scene
+
     private int nextSpawnTeam1;
     private int nextSpawnTeam2;
 
