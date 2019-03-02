@@ -174,6 +174,7 @@ public class Player : NetworkBehaviour
             LobbyManager.singleton.teamLobbyManager1.nbInThisTeam++;
         if(team == 2)
             LobbyManager.singleton.teamLobbyManager2.nbInThisTeam++;
+        GetComponentInChildren<SpriteRenderer>().material.SetInt("_Team", team);
     }
 
     [Command]
@@ -186,6 +187,7 @@ public class Player : NetworkBehaviour
             LobbyManager.singleton.teamLobbyManager1.nbInThisTeam--;
         if(team == 2)
             LobbyManager.singleton.teamLobbyManager2.nbInThisTeam--;
+        GetComponentInChildren<SpriteRenderer>().material.SetInt("_Team", team);
     }
 
     [Command]
