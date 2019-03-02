@@ -12,7 +12,7 @@ public class PublicNetworkManager : MonoBehaviour
     void Start()
     {
         // StartCoroutine(CreatePartie("Partie1")); 
-         StartCoroutine(GetChoicePublic("Partie1")); 
+         //StartCoroutine(GetChoicePublic("Partie1")); 
     }
 
     // Update is called once per frame
