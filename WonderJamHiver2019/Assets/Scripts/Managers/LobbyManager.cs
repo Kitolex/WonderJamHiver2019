@@ -27,9 +27,8 @@ public class LobbyManager : MonoBehaviour
         {
             //TODO : afficher panel
 
-            if (Input.GetKeyDown(KeyCode.L))
+            if (Input.GetKeyDown(KeyCode.L) || Input.GetButtonDown("StartController"))
             {
-                Debug.Log("szdefghjk");
                 foreach(GameObject go in GameObject.FindGameObjectsWithTag("Player")) {
                     go.GetComponent<Player>().RpcPrepareToStartGame();
                 }
