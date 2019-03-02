@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.Networking;
 
 public class MainMenuManager : MonoBehaviour
 {
@@ -10,11 +11,14 @@ public class MainMenuManager : MonoBehaviour
     public GameObject CreationPartiePanel;
     public GameObject RejoindrePartiePanel;
 
+    public InputField adresseServer;
+
+    private NetworkManager networkManager;
 
     // Start is called before the first frame update
     void Start()
     {
-        
+        networkManager = GameObject.FindGameObjectWithTag("NetworkManager").GetComponent<NetworkManager>();   
     }
 
     // Update is called once per frame
@@ -31,6 +35,8 @@ public class MainMenuManager : MonoBehaviour
         CreationPartiePanel.SetActive(true);
 
 
+        networkManager.StartHost();
+
     }
 
     public void RejoindrePartie()
@@ -41,6 +47,13 @@ public class MainMenuManager : MonoBehaviour
         RejoindrePartiePanel.SetActive(true);
 
 
+    }
+
+    public void StartClient()
+    {
+        Debug.Log("ssssss");
+        networkManager.networkAddress = this.adresseServer.text;
+        networkManager.StartClient();
     }
 
     public void Quitter()
