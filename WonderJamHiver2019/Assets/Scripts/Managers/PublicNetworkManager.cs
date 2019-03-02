@@ -11,7 +11,8 @@ public class PublicNetworkManager : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-       // StartCoroutine(CreatePartie("Partie1"));   
+        // StartCoroutine(CreatePartie("Partie1")); 
+         StartCoroutine(GetChoicePublic("Partie1")); 
     }
 
     // Update is called once per frame
@@ -33,7 +34,21 @@ public class PublicNetworkManager : MonoBehaviour
         {
             Debug.Log("Form upload complete!");
         }
+    }
 
+    IEnumerator GetChoicePublic(string namePartie)
+    {
+        string URL = URL_VOTE+"/"+ namePartie;
+        UnityWebRequest www = UnityWebRequest.Get(URL);
+        yield return www.SendWebRequest();
+        if (www.isNetworkError || www.isHttpError)
+        {
+            Debug.Log(www.error);
+        }
+        else
+        {
+            Debug.Log(www.downloadHandler.text);
+        }
 
     }
 }
