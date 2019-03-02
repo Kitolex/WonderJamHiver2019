@@ -38,23 +38,18 @@ public class Player : NetworkBehaviour
     {
         if (enterTeamZone)
         {
-            if (Input.GetKeyDown(KeyCode.E))
+            if ((Input.GetButtonDown("Fire1") || Input.GetKeyDown(KeyCode.E)) && this.realTeam == 0)
             {
                 Debug.Log("Ajout Equipe");
+                this.realTeam = -1; // set dirty pour éviter le spam, sera ecrasé par le serveur
                 CmdSetRealTeam(team);
-                
-
             }
 
-            if (Input.GetKeyDown(KeyCode.R))
+            if ((Input.GetButtonDown("Fire2") || Input.GetKeyDown(KeyCode.R)) && this.realTeam != 0)
             {
                 Debug.Log("Suprresion Equipe");
                 CmdResetRealTeam();
-
-
             }
-
-
         }
     }
 
@@ -91,9 +86,9 @@ public class Player : NetworkBehaviour
     {
         this.gameObject.GetComponent<SpriteRenderer>().enabled = active;
         this.gameObject.GetComponent<Movement>().enabled = active;
+        this.gameObject.GetComponent<Dash>().enabled = active;
         this.gameObject.GetComponent<Rigidbody>().useGravity = active;
         this.gameObject.GetComponent<Collider>().enabled = active;
-        
     }
 
 

@@ -11,6 +11,8 @@ public class Movement : NetworkBehaviour
     [Range(1,10)]
     public float movementSpeed;
     public float acceleration;
+    public float inputMinThreshold = 0.1f;
+    public float minSpeedWhenInput = 0.8f;
 
     Rigidbody rb;
 
@@ -20,7 +22,7 @@ public class Movement : NetworkBehaviour
     bool isStuned;
 
     public Animator animator;
-
+    private SpriteRenderer spriteRenderer;
 
     // Start is called before the first frame update
     void Start()
@@ -28,6 +30,8 @@ public class Movement : NetworkBehaviour
         rb = GetComponent<Rigidbody>();
         if (!rb)
             Debug.LogWarning("Pas de rigidbody sur le joueur");
+
+        spriteRenderer = GetComponent<SpriteRenderer>();
     }
 
     // Update is called once per frame
@@ -48,18 +52,6 @@ public class Movement : NetworkBehaviour
         }
     }
 
-     void FixedUpdate()
-    {
-        if(horizontalAxis > 0)
-        {
-            animator.SetBool("IsMovingRight", true);
-        }
-        if (horizontalAxis < 0)
-        {
-            animator.SetBool("IsMovingRight", false);
-        }
-    }
-
     void GetAxis()
     {
         horizontalAxis = Input.GetAxis("Horizontal");
@@ -71,14 +63,23 @@ public class Movement : NetworkBehaviour
         if (!canMove)
             return;
 
-        animator.SetFloat("Speed", Mathf.Abs(horizontalAxis) + Mathf.Abs(verticalAxis));
-
         Vector2 movement = new Vector2(horizontalAxis, verticalAxis);
-        movement.Normalize();
+
+        if(movement.magnitude < inputMinThreshold)
+        {
+            CmdUpdateMovementEffect(0.0f, horizontalAxis < 0);
+            return;
+        }
+
+        if(movement.magnitude > 1.0f)
+            movement.Normalize();
+
+       CmdUpdateMovementEffect(movement.magnitude, horizontalAxis < 0);
 
         float magnitude = Mathf.Lerp(rb.velocity.magnitude, movementSpeed, Time.deltaTime * acceleration);
 
-        //this.transform.position += new Vector3(movement.x * magnitude, rb.velocity.y, movement.y * magnitude);
+        magnitude = Mathf.Max(magnitude, minSpeedWhenInput);
+
         this.rb.velocity = new Vector3(movement.x * magnitude, rb.velocity.y , movement.y * magnitude);
     }
 
@@ -97,5 +98,21 @@ public class Movement : NetworkBehaviour
         canMove = false;
         isStuned = true;
         stunTimer = Time.time + stunedTime;
+    }
+
+    [Command]
+    public void CmdUpdateMovementEffect(float speed, bool flipX)
+    {
+        RpcUpdateMovementEffect(speed, flipX);
+    }
+
+    [ClientRpc]
+    public void RpcUpdateMovementEffect(float speed, bool flipX)
+    {
+        animator.SetFloat("Speed", speed);
+        if(speed > 0.01f)
+        {
+            spriteRenderer.flipX = flipX;
+        }
     }
 }

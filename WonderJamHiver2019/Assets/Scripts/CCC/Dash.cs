@@ -5,13 +5,12 @@ using UnityEngine.Networking;
 
 public class Dash : NetworkBehaviour
 {
-    public float DashTime = 1000f;
-    public float DashSpeed;
-    public float DashCooldown = 1f;
-    public float InputReactivationCooldowwn = .5f;
-    public float ImpactForce = 350f;
+    public float DashSpeed = 500.0f;
+    public float DashCooldown = 1.0f;
+    public float InputReactivationCooldowwn = 0.5f;
+    public float ImpactForce = 600.0f;
 
-    public float StunedDuration = 1f;
+    public float StunedDuration = 1.5f;
 
     float horizontalAxis;
     float verticalAxis;
@@ -32,17 +31,22 @@ public class Dash : NetworkBehaviour
 
     Rigidbody rb;
     Movement movement;
+    Player player;
 
 
     void Start()
     {
         rb = GetComponent<Rigidbody>();
         if (!rb)
-            Debug.Log("Pas de rigidbody sur le joueur");
+            Debug.LogWarning("Pas de rigidbody sur le joueur");
 
         movement = GetComponent<Movement>();
         if (!movement)
             Debug.LogWarning("Pas de movement script sur le joueur");
+
+        player = GetComponent<Player>();
+        if (!player)
+            Debug.LogWarning("Pas de Player script sur le joueur");
 
         isDashing = false;
     }
@@ -58,7 +62,7 @@ public class Dash : NetworkBehaviour
         if (!isLocalPlayer)
             return;
 
-        if (Input.GetButtonDown("Fire1"))
+        if (Input.GetButtonDown("Fire1") && !player.enterTeamZone)
         { 
             StartDash();
         }

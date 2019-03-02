@@ -129,12 +129,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a1dbac32a7c71c2448bbdbd0c66c4ea3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  DashTime: 1000
-  DashSpeed: 300
+  DashSpeed: 500
   DashCooldown: 1
   InputReactivationCooldowwn: 0.5
-  ImpactForce: 800
-  StunedDuration: 1
+  ImpactForce: 600
+  StunedDuration: 1.5
   minDashEffect: 0.3
   maxDashEffect: 0.8
   isDashing: 0
@@ -206,6 +205,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   ressourceCount: 0
+  team: 0
+  realTeam: 0
+  enterTeamZone: 0
 --- !u!114 &7563536602254062439
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -220,6 +222,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   movementSpeed: 5
   acceleration: 6
+  inputMinThreshold: 0.1
+  minSpeedWhenInput: 0.8
+  canMove: 1
   animator: {fileID: 626013895}
 --- !u!95 &626013895
 Animator:
