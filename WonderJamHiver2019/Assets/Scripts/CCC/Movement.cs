@@ -21,8 +21,8 @@ public class Movement : NetworkBehaviour
     float stunTimer;
     bool isStuned;
 
-    Animator animator;
-    private SpriteRenderer spriteRenderer;
+    public Animator animator;
+    public SpriteRenderer spriteRenderer;
 
     // Start is called before the first frame update
     void Start()

@@ -33,7 +33,7 @@ public class Dash : NetworkBehaviour
     Movement movement;
     Player player;
 
-    Animator animator;
+    public Animator animator;
 
 
     void Start()
@@ -51,10 +51,6 @@ public class Dash : NetworkBehaviour
             Debug.LogWarning("Pas de Player script sur le joueur");
 
         isDashing = false;
-
-        animator = gameObject.GetComponent<Animator>();
-        if (!animator)
-            Debug.LogWarning("Pas d'animator sur le joueur");
 
     }
 

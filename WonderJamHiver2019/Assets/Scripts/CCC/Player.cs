@@ -25,7 +25,7 @@ public class Player : NetworkBehaviour
 
     public bool enterTeamZone;
 
-    
+    public SpriteRenderer spriteRenderer;
 
     // Start is called before the first frame update
     void Start()
