@@ -79,7 +79,7 @@ public class Movement : NetworkBehaviour
         float magnitude = Mathf.Lerp(rb.velocity.magnitude, movementSpeed, Time.deltaTime * acceleration);
 
         //this.transform.position += new Vector3(movement.x * magnitude, rb.velocity.y, movement.y * magnitude);
-        this.rb.velocity = new Vector3(movement.x * magnitude, 0 , movement.y * magnitude);
+        this.rb.velocity = new Vector3(movement.x * magnitude, rb.velocity.y , movement.y * magnitude);
     }
 
     public void disableMove()
