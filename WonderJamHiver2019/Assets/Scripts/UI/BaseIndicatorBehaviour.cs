@@ -9,7 +9,9 @@ public class BaseIndicatorBehaviour : MonoBehaviour, EventListener<LocalPlayerSt
     RectTransform rTransf;
     Image img;
     GameObject player;
-    public GameObject teamBase; // A renseigner dans la scene
+    public Base teamBase1; // A renseigner dans la scene
+    public Base teamBase2; // A renseigner dans la scene
+    private Base teamBase;
     public float DistanceAffichage;
 
     bool isVisible = false;
@@ -26,6 +28,16 @@ public class BaseIndicatorBehaviour : MonoBehaviour, EventListener<LocalPlayerSt
             Debug.LogWarning("Pas d'image trouvé sur le gameobject");
 
         img.CrossFadeAlpha(0, 0, false);
+
+        if(PlayerState.singleton.myTeam == 1)
+        {
+            teamBase = teamBase1;
+        }
+
+        if(PlayerState.singleton.myTeam == 2)
+        {
+            teamBase = teamBase2;
+        }
     }
 
     // Update is called once per frame
