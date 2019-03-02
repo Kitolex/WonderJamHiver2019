@@ -59,16 +59,4 @@ public class Base : NetworkBehaviour
     {
 
     }
-
-  /*  [ClientRpc]
-    public void RpcAddRessource(int nbRessource)
-    {
-        
-    }
-
-    [ClientRpc]
-    public void RpcDecreaseRessource(int nbRessource)
-    {
-        
-    }*/
 }

@@ -11,7 +11,6 @@ public class BaseIndicatorBehaviour : MonoBehaviour, EventListener<LocalPlayerSt
     GameObject player;
     public Base teamBase1; // A renseigner dans la scene
     public Base teamBase2; // A renseigner dans la scene
-    private Base teamBase;
     public float DistanceAffichage;
 
     bool isVisible = false;
@@ -31,22 +30,22 @@ public class BaseIndicatorBehaviour : MonoBehaviour, EventListener<LocalPlayerSt
 
         if(PlayerState.singleton.myTeam == 1)
         {
-            teamBase = teamBase1;
+            PlayerState.singleton.myBase = teamBase1;
         }
 
         if(PlayerState.singleton.myTeam == 2)
         {
-            teamBase = teamBase2;
+            PlayerState.singleton.myBase = teamBase2;
         }
     }
 
     // Update is called once per frame
     void Update()
     {
-        if (!player || !teamBase)
+        if (!player || !PlayerState.singleton.myBase)
             return;
 
-        Vector2 orientation = new Vector2(player.transform.position.x - teamBase.transform.position.x, player.transform.position.z - teamBase.transform.position.z);
+        Vector2 orientation = new Vector2(player.transform.position.x - PlayerState.singleton.myBase.transform.position.x, player.transform.position.z - PlayerState.singleton.myBase.transform.position.z);
         float angle = Vector2.SignedAngle(Vector2.right, -orientation.normalized);
 
         if (orientation.magnitude > DistanceAffichage && !isVisible)
@@ -63,7 +62,7 @@ public class BaseIndicatorBehaviour : MonoBehaviour, EventListener<LocalPlayerSt
         rTransf.rotation = Quaternion.Euler(0, 0, angle);
 
 
-        Vector3 iconPosition = Camera.main.WorldToScreenPoint(teamBase.transform.position) - new Vector3((Screen.width / 2f), (Screen.height / 2f),0);
+        Vector3 iconPosition = Camera.main.WorldToScreenPoint(PlayerState.singleton.myBase.transform.position) - new Vector3((Screen.width / 2f), (Screen.height / 2f),0);
         iconPosition.x = Mathf.Clamp(iconPosition.x, -(Screen.width/2f) + 35, (Screen.width/2f) - 35);
         iconPosition.y = Mathf.Clamp(iconPosition.y, -(Screen.height / 2f) + 35, (Screen.height / 2f) - 35);
 

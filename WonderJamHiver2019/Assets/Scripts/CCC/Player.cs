@@ -116,13 +116,22 @@ public class Player : NetworkBehaviour
 
                 this.ressourceCount -= ressourceInThisAction;
 
-                
+                PlayerState.singleton.myBase.currentPression += ressourceInThisAction;
             }
         }
 
         if(isTakingRessource)
         {
-            
+            if(Time.time > timerInteractionBase)
+            {
+                timerInteractionBase = Time.time + delaisInteractionBase;
+
+                int ressourceInThisAction = Mathf.Min(PlayerState.singleton.myBase.currentPression, nbRessourcePerInteraction);
+
+                this.ressourceCount += ressourceInThisAction;
+
+                PlayerState.singleton.myBase.currentPression -= ressourceInThisAction;
+            }
         }
     }
 
