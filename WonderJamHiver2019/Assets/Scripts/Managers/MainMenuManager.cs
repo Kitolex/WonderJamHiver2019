@@ -37,6 +37,8 @@ public class MainMenuManager : MonoBehaviour
 
         networkManager.StartHost();
 
+        
+
     }
 
     public void RejoindrePartie()
