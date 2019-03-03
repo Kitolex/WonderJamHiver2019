@@ -2024,7 +2024,6 @@ GameObject:
   - component: {fileID: 840984052}
   - component: {fileID: 840984051}
   - component: {fileID: 840984050}
-  - component: {fileID: 840984054}
   - component: {fileID: 840984055}
   m_Layer: 0
   m_Name: Wall
@@ -2106,22 +2105,6 @@ Transform:
   m_Father: {fileID: 286681853}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 90.00001, y: 0, z: 179.914}
---- !u!114 &840984054
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 840984049}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ab0dedf048d70744eb9fc945c47d4b1d, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  firstWindow: {fileID: 0}
-  secondWindow: {fileID: 0}
-  thirdWindow: {fileID: 0}
-  lastWindow: {fileID: 0}
 --- !u!65 &840984055
 BoxCollider:
   m_ObjectHideFlags: 0

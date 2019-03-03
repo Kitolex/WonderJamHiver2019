@@ -11,10 +11,18 @@ public class GameOverManager : NetworkBehaviour
     public Text whoWon;
     private NetworkManager networkManager;
 
+
+    private void Awake()
+    {
+        networkManager = GameObject.FindGameObjectWithTag("NetworkManager").GetComponent<NetworkManager>();
+
+        networkManager.autoCreatePlayer = false;
+
+    }
     // Start is called before the first frame update
     void Start()
     {
-        networkManager = GameObject.FindGameObjectWithTag("NetworkManager").GetComponent<NetworkManager>();
+       // networkManager = GameObject.FindGameObjectWithTag("NetworkManager").GetComponent<NetworkManager>();
 
         scoreTeam1 = PlayerState.singleton.scoreTeam1;
         scoreTeam2 = PlayerState.singleton.scoreTeam2;
@@ -42,12 +50,11 @@ public class GameOverManager : NetworkBehaviour
 
     public void RetourMenuPrincipal()
     {
+        networkManager.autoCreatePlayer = true;
+
         if (isServer)
             networkManager.StopHost();
-        else
+        if(isClient)
             networkManager.StopClient();
-
-
-        networkManager.ServerChangeScene("MainMenu2");
     }
 }

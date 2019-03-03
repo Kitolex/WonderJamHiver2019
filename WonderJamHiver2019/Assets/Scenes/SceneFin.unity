@@ -152,7 +152,7 @@ MonoBehaviour:
   m_Transition: 1
   m_Colors:
     m_NormalColor: {r: 0, g: 0, b: 0, a: 1}
-    m_HighlightedColor: {r: 0.5529412, g: 0.5294118, b: 0.9607843, a: 0.78431374}
+    m_HighlightedColor: {r: 1, g: 0.6509804, b: 0.25882354, a: 0.78431374}
     m_PressedColor: {r: 0.78431374, g: 0.78431374, b: 0.78431374, a: 1}
     m_DisabledColor: {r: 0.78431374, g: 0.78431374, b: 0.78431374, a: 0.5019608}
     m_ColorMultiplier: 1
@@ -622,7 +622,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: QUITTER
+  m_Text: QUIT
 --- !u!222 &1126246018
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -735,6 +735,80 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!1001 &1586974133
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 4752684619711947392, guid: 68b72d1cf99304f4eb0b7e3180b914d1,
+        type: 3}
+      propertyPath: m_Name
+      value: NetworkManager
+      objectReference: {fileID: 0}
+    - target: {fileID: 4752684619711947392, guid: 68b72d1cf99304f4eb0b7e3180b914d1,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4752684619711947397, guid: 68b72d1cf99304f4eb0b7e3180b914d1,
+        type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 363.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 4752684619711947397, guid: 68b72d1cf99304f4eb0b7e3180b914d1,
+        type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 204.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 4752684619711947397, guid: 68b72d1cf99304f4eb0b7e3180b914d1,
+        type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4752684619711947397, guid: 68b72d1cf99304f4eb0b7e3180b914d1,
+        type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4752684619711947397, guid: 68b72d1cf99304f4eb0b7e3180b914d1,
+        type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4752684619711947397, guid: 68b72d1cf99304f4eb0b7e3180b914d1,
+        type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4752684619711947397, guid: 68b72d1cf99304f4eb0b7e3180b914d1,
+        type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4752684619711947397, guid: 68b72d1cf99304f4eb0b7e3180b914d1,
+        type: 3}
+      propertyPath: m_RootOrder
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 4752684619711947397, guid: 68b72d1cf99304f4eb0b7e3180b914d1,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4752684619711947397, guid: 68b72d1cf99304f4eb0b7e3180b914d1,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4752684619711947397, guid: 68b72d1cf99304f4eb0b7e3180b914d1,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 68b72d1cf99304f4eb0b7e3180b914d1, type: 3}
 --- !u!1 &1628764350
 GameObject:
   m_ObjectHideFlags: 0
@@ -785,7 +859,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 0.4745098, g: 0.45882353, b: 0.9607843, a: 1}
+  m_Color: {r: 1, g: 0.45098042, b: 0.25490198, a: 1}
   m_RaycastTarget: 1
   m_OnCullStateChanged:
     m_PersistentCalls:
@@ -795,7 +869,7 @@ MonoBehaviour:
   m_FontData:
     m_Font: {fileID: 12800000, guid: d8b85d6afc5e7ed4b9c7f1fa167d0959, type: 3}
     m_FontSize: 50
-    m_FontStyle: 0
+    m_FontStyle: 3
     m_BestFit: 0
     m_MinSize: 5
     m_MaxSize: 50
