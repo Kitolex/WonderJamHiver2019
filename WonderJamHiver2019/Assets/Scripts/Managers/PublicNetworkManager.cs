@@ -159,10 +159,9 @@ public class PublicNetworkManager : MonoBehaviour
             Player p = go.GetComponent<Player>();
             if (p.playerID == this.playerID)
             {
-                if (eventPublic.Equals("Reverse"))
-                {
-                    StartCoroutine(ShowMessage("!! DANGER !! Something incoming...", new Color32(200, 45, 45, 255), 4));
-                }
+                
+               StartCoroutine(ShowMessage("!! DANGER !! Something incoming...", new Color32(200, 45, 45, 255), 4));
+                
             }
         }
     }
