@@ -6,6 +6,8 @@ TagManager:
   tags:
   - NetworkManager
   - LobbyManager
+  - emergency2
+  - PublicVow
   layers:
   - Default
   - TransparentFX

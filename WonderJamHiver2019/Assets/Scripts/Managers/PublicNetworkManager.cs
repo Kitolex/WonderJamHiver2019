@@ -75,7 +75,7 @@ public class PublicNetworkManager : MonoBehaviour
     void Update()
     {
         if(PlayerState.singleton.inGame && publicVow == null)
-            publicVow = GameObject.Find("PublicVow").GetComponent<Text>();
+            publicVow = GameObject.FindGameObjectWithTag("PublicVow").GetComponent<Text>();
 
         if (activeTimerForPublicToPlay)
         {

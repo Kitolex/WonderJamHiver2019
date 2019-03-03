@@ -95,8 +95,6 @@ public class Player : NetworkBehaviour
         audioSourceRessourceGive.volume = Mathf.SmoothDamp(audioSourceRessourceGive.volume, isGivingRessource ? volumeGiveToBase : 0.0f, ref velocityVolumeGiveToBase, smoothTime);
         audioSourceRessourceTake.volume = Mathf.SmoothDamp(audioSourceRessourceTake.volume, isTakingRessource ? volumeTakeFromBase : 0.0f, ref velocityVolumeTakeFromBase, smoothTime);
         
-        spriteRenderer.material.SetInt("_Team", team);
-
         if (enterTeamZone)
         {
             if ((Input.GetButtonDown("Fire1") || Input.GetKeyDown(KeyCode.E)) && this.realTeam == 0)
@@ -157,6 +155,8 @@ public class Player : NetworkBehaviour
                 CmdStopTakeRessourceFromBase();
             }
         }
+
+        spriteRenderer.material.SetInt("_Team", team);
 
         if(!isServer)
             return;
