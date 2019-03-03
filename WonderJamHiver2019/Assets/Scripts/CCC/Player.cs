@@ -48,6 +48,7 @@ public class Player : NetworkBehaviour
     public AudioSource audioSourceRessourceCollect;
     public AudioSource audioSourceRessourceGive;
     public AudioSource audioSourceRessourceTake;
+    public AudioSource audioSourceHackDuration;
 
     [Header("Sounds")]
     public float volumePick = 0.15f;
@@ -158,6 +159,13 @@ public class Player : NetworkBehaviour
 
         if(!isServer)
             return;
+
+        
+        
+        if(Input.GetKeyDown(KeyCode.H))
+        {
+            RpcStartBeingHacked();
+        }
 
         if(isGivingRessource)
         {
@@ -356,5 +364,17 @@ public class Player : NetworkBehaviour
         NetworkServer.Spawn(instance);
         
         this.ressourceCount -= ressourcePrefab.GetComponent<Ressource>().nbPressionGive;
+    }
+
+    [ClientRpc]
+    public void RpcStartBeingHacked()
+    {
+        Movement movement = GetComponent<Movement>();
+        movement.isHackedFor(6.5f);
+
+        if(!isLocalPlayer)
+            return;
+
+        audioSourceHackDuration.Play();
     }
 }
