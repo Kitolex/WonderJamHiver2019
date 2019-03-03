@@ -69,13 +69,14 @@ public class PublicNetworkManager : MonoBehaviour
         //StartCoroutine(GetChoicePublic("Partie1")); 
         //StartCoroutine(DeleteParty("Partie1"));
         networkManager = GameObject.FindGameObjectWithTag("NetworkManager").GetComponent<NetworkManager>();
-
-        publicVow = GameObject.Find("PublicVow").GetComponent<Text>();
     }
 
     // Update is called once per frame
     void Update()
     {
+        if(PlayerState.singleton.inGame && publicVow == null)
+            publicVow = GameObject.Find("PublicVow").GetComponent<Text>();
+
         if (activeTimerForPublicToPlay)
         {
             timeLeftToPublicPlay -= Time.deltaTime;
