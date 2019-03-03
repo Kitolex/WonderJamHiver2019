@@ -114,6 +114,19 @@ public class Player : NetworkBehaviour
                 CmdStopTakeRessourceFromBase();
             }
         }
+        else
+        {
+            if(isGivingRessource)
+            {
+                isGivingRessource = false;
+                CmdStopGiveRessourceToBase();
+            }
+            if(isTakingRessource)
+            {
+                isTakingRessource = false;
+                CmdStopTakeRessourceFromBase();
+            }
+        }
 
         if(!isServer)
             return;
