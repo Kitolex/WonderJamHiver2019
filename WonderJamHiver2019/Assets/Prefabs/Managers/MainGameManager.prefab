@@ -56,7 +56,7 @@ MonoBehaviour:
   - {fileID: 0}
   teamBase1: {fileID: 0}
   teamBase2: {fileID: 0}
-  countNeededPlayer: 1
+  countNeededPlayer: 6
 --- !u!114 &4233025069851766042
 MonoBehaviour:
   m_ObjectHideFlags: 0

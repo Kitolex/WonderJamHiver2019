@@ -43,4 +43,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 26a383b80b4c67b479002d23a08e3a57, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  countNeededPlayer: 2
+  UILaunch: {fileID: 0}
+  teamLobbyManager1: {fileID: 0}
+  teamLobbyManager2: {fileID: 0}
+  countNeededPlayer: 6

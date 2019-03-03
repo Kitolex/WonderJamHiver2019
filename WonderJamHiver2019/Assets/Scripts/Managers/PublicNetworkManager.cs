@@ -146,8 +146,12 @@ public class PublicNetworkManager : MonoBehaviour
                 if (eventPublic.Equals("Reverse"))
                 {
                     p.RpcStartBeingHacked();
-                    GestionLoop();
                 }
+                else if (eventPublic.Equals("Stun"))
+                {
+                    p.RpcReceivedLightning();
+                }
+                GestionLoop();
             }
         }
     }

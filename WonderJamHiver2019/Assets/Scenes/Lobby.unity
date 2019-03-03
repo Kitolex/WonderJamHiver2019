@@ -2510,11 +2510,6 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6974651683134788948, guid: 937e277479408c64ab6847f967b2fb66,
         type: 3}
-      propertyPath: countNeededPlayer
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 6974651683134788948, guid: 937e277479408c64ab6847f967b2fb66,
-        type: 3}
       propertyPath: UILaunch
       value: 
       objectReference: {fileID: 853637190}
