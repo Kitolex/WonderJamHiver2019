@@ -57,6 +57,9 @@ public class Ressource : NetworkBehaviour
         if (other.tag.Equals("Player"))
         {
             Player player = other.GetComponent<Player>();
+            if(player.ressourceCount == player.maxRessourceCount)
+                return;
+                
             player.ressourceCount = Mathf.Min(player.ressourceCount + nbPressionGive, player.maxRessourceCount);
             player.RpcCollectRessource();
             RpcDestroyRessource();
