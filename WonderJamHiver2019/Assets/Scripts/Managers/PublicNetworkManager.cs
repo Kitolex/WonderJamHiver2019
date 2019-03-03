@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Text.RegularExpressions;
 using UnityEngine;
 using UnityEngine.Networking;
+using UnityEngine.UI;
 
 public class PublicNetworkManager : MonoBehaviour
 {
@@ -48,6 +49,8 @@ public class PublicNetworkManager : MonoBehaviour
     private int playerID;
     private string eventPublic;
 
+    private Text publicVow;
+
 
     public void Awake()
     {
@@ -66,6 +69,8 @@ public class PublicNetworkManager : MonoBehaviour
         //StartCoroutine(GetChoicePublic("Partie1")); 
         //StartCoroutine(DeleteParty("Partie1"));
         networkManager = GameObject.FindGameObjectWithTag("NetworkManager").GetComponent<NetworkManager>();
+
+        publicVow = GameObject.Find("PublicVow").GetComponent<Text>();
     }
 
     // Update is called once per frame
@@ -78,7 +83,8 @@ public class PublicNetworkManager : MonoBehaviour
             {
 
                 Debug.Log("A new Challenger In Comming");
-
+                StartCoroutine(ShowMessage("!! WARNING !! I sense a greater presence", new Color32(253, 165, 25, 255), 3));
+               
                 StartCoroutine(LaunchPartie(namePartie));                          
                 activeTimerForPublicToPlay = false;
             }
@@ -109,6 +115,14 @@ public class PublicNetworkManager : MonoBehaviour
 
     }
 
+    IEnumerator ShowMessage(string message, Color32 color, float delay)
+    {
+        publicVow.text = message;
+        publicVow.color = color;
+        publicVow.enabled = true;
+        yield return new WaitForSeconds(delay);
+        publicVow.enabled = false;
+    }
 
     public void ActiveLoop()
     {
@@ -132,9 +146,25 @@ public class PublicNetworkManager : MonoBehaviour
 
         playerID = int.Parse(action[0].Substring(action[0].Length - 1));
         Debug.Log(playerID);
+        WarnPlayer(playerID);
         this.eventPublic = action[1];
         Debug.Log(this.eventPublic);
 
+    }
+
+    private void WarnPlayer(int playerID)
+    {
+        foreach (GameObject go in GameObject.FindGameObjectsWithTag("Player"))
+        {
+            Player p = go.GetComponent<Player>();
+            if (p.playerID == this.playerID)
+            {
+                if (eventPublic.Equals("Reverse"))
+                {
+                    StartCoroutine(ShowMessage("!! DANGER !! You have been hacked", new Color32(200, 45, 45, 255), 4));
+                }
+            }
+        }
     }
 
     public void ApplyEventOnPlayer()
