@@ -9,6 +9,7 @@ public class Dash : NetworkBehaviour
     public float DashCooldown = 1.0f;
     public float InputReactivationCooldowwn = 0.5f;
     public float ImpactForce = 600.0f;
+    public int DashConso = 2;
 
     public float StunedDuration = 1.5f;
 
@@ -104,10 +105,13 @@ public class Dash : NetworkBehaviour
 
         if (horizontalAxis != 0 || verticalAxis != 0)
         {
-            CmdStartDashing();
-            cooldownTimer = Time.time + DashCooldown;
-            inputTimer = Time.time + InputReactivationCooldowwn;
-            movement.canMove = false;
+            if (player.ressourceCount >= DashConso)
+            {
+                CmdStartDashing();
+                cooldownTimer = Time.time + DashCooldown;
+                inputTimer = Time.time + InputReactivationCooldowwn;
+                movement.canMove = false;
+            }
 
         }
     }
@@ -117,6 +121,7 @@ public class Dash : NetworkBehaviour
     {
         this.isDashing = true;
         RpcImpulseDash();
+        player.ressourceCount -= DashConso;
     }
 
     [Command]
