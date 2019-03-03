@@ -2,10 +2,10 @@
 using System.Collections.Generic;
 using UnityEngine;
 using Events;
+using TMPro;
 
-public class AuSecour : MonoBehaviour, EventListener<EndGameEvent>
+public class VictoryText : MonoBehaviour, EventListener<EndGameEvent>
 {
-
     void OnEnable()
     {
         this.EventStartListening<EndGameEvent>();
@@ -17,16 +17,15 @@ public class AuSecour : MonoBehaviour, EventListener<EndGameEvent>
 
     public void OnEvent(EndGameEvent eventType)
     {
-        if (GetComponent<Base>().team == eventType.winnerTeam)
-        {
-            StartCoroutine(EndGameCoroutine());
-        }
+        
+        StartCoroutine(EndGameCoroutine(eventType.winnerTeam));
+
 
     }
 
-    IEnumerator EndGameCoroutine()
+    IEnumerator EndGameCoroutine(int winner)
     {
-        yield return new WaitForSeconds(2);
-        GetComponent<Animator>().SetTrigger("Decollage");
+        yield return new WaitForSeconds(3);
+        GetComponent<TextMeshProUGUI>().SetText("TEAM " + winner + " \n WINS!");
     }
 }

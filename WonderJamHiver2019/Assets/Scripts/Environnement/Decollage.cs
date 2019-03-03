@@ -5,6 +5,8 @@ using Events;
 
 public class Decollage : MonoBehaviour, EventListener<EndGameEvent>
 {
+    public GameObject Particle;
+
     void OnEnable()
     {
         this.EventStartListening<EndGameEvent>();
@@ -25,6 +27,7 @@ public class Decollage : MonoBehaviour, EventListener<EndGameEvent>
 
     IEnumerator EndGameCoroutine()
     {
+        Particle.SetActive(true);
         yield return new WaitForSeconds(2);
         GetComponent<Animator>().SetTrigger("Decollage");
     }
