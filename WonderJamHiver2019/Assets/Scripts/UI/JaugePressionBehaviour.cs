@@ -9,12 +9,17 @@ public class JaugePressionBehaviour : MonoBehaviour, EventListener<LocalPlayerSt
     Player localPlayer;
     RectTransform rTransf;
 
-   
+    private float current;
+    float smoothTime = 0.3f;
+    float velocity = 0.0f;
+
     void Start()
     {
         rTransf = GetComponent<RectTransform>();
         if (!rTransf)
             Debug.Log("L'aguille n'a pas été placée");
+
+        current = 0.5f;
     }
 
 
@@ -23,9 +28,9 @@ public class JaugePressionBehaviour : MonoBehaviour, EventListener<LocalPlayerSt
         if (!localPlayer)
             return;
 
-        
+        current = Mathf.SmoothDamp(current, (float)localPlayer.ressourceCount / (float)localPlayer.maxRessourceCount, ref velocity, smoothTime);
 
-        rTransf.rotation = Quaternion.Euler(0, 0, Mathf.Lerp(60, -60, (float)localPlayer.ressourceCount / (float)localPlayer.maxRessourceCount));
+        rTransf.rotation = Quaternion.Euler(0, 0, Mathf.Lerp(60, -60, current));
     }
 
     public void OnEvent(LocalPlayerStartEvent eventType)
