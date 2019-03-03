@@ -56,9 +56,11 @@ MonoBehaviour:
     type: 3}
   m_AutoCreatePlayer: 1
   m_PlayerSpawnMethod: 1
-  m_OfflineScene: 
+  m_OfflineScene: MainMenu2
   m_OnlineScene: Lobby
-  m_SpawnPrefabs: []
+  m_SpawnPrefabs:
+  - {fileID: 5399573792267783274, guid: 7b2d419060e470142bf5b1f476ba3ce6, type: 3}
+  - {fileID: 5399573792267783274, guid: 93360399bba6f714493c210ffcf0a6e9, type: 3}
   m_CustomConfig: 0
   m_MaxConnections: 4
   m_ConnectionConfig:

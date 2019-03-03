@@ -14,6 +14,13 @@ public class Movement : NetworkBehaviour
     public float inputMinThreshold = 0.1f;
     public float minSpeedWhenInput = 0.8f;
 
+    [Header("Multiplicateur selon % pression")]
+
+    public float speedMul_0_25 = 0.96f;
+    public float speedMul_25_50 = 0.985f;
+    public float speedMul_50_75 = 1.0f;
+    public float speedMul_75_100 = 1.035f;
+
     Rigidbody rb;
 
     public bool canMove = true;
@@ -23,6 +30,7 @@ public class Movement : NetworkBehaviour
 
     public Animator animator;
     public SpriteRenderer spriteRenderer;
+    private Player player;
 
     // Start is called before the first frame update
     void Start()
@@ -32,13 +40,8 @@ public class Movement : NetworkBehaviour
             Debug.LogWarning("Pas de rigidbody sur le joueur");
 
         spriteRenderer = GetComponentInChildren<SpriteRenderer>();
-        
-        /*
-        animator = gameObject.GetComponent<Animator>();
-        if (!animator)
-            Debug.LogWarning("Pas d'animator sur le joueur");
 
-        */
+        player = GetComponent<Player>();
 
     }
 
@@ -79,14 +82,23 @@ public class Movement : NetworkBehaviour
             return;
         }
 
-        if(movement.magnitude > 1.0f)
-            movement.Normalize();
+        movement.Normalize();
 
        CmdUpdateMovementEffect(movement.magnitude, horizontalAxis < 0);
 
         float magnitude = Mathf.Lerp(rb.velocity.magnitude, movementSpeed, Time.deltaTime * acceleration);
 
         magnitude = Mathf.Max(magnitude, minSpeedWhenInput);
+
+        float pourcentage = (float)player.ressourceCount / (float)player.maxRessourceCount;
+        if(pourcentage < 0.25f)
+            magnitude *= speedMul_0_25;
+        else if(pourcentage < 0.5f)
+            magnitude *= speedMul_25_50;
+        else if(pourcentage < 0.75f)
+            magnitude *= speedMul_50_75;
+        else
+            magnitude *= speedMul_75_100;
 
         this.rb.velocity = new Vector3(movement.x * magnitude, rb.velocity.y , movement.y * magnitude);
     }

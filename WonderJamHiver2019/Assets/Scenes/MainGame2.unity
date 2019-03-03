@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.44657898, g: 0.4964133, b: 0.5748178, a: 1}
+  m_IndirectSpecularColor: {r: 0.44855565, g: 0.49860513, b: 0.5756566, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -38070,6 +38070,11 @@ PrefabInstance:
       propertyPath: teamBase2
       value: 
       objectReference: {fileID: 2037116991}
+    - target: {fileID: 7673347504909979458, guid: 5f767461f2bf81d448703351260674da,
+        type: 3}
+      propertyPath: DistanceAffichage
+      value: 15
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 5f767461f2bf81d448703351260674da, type: 3}
 --- !u!224 &1803700267 stripped
