@@ -21,6 +21,8 @@ public class MainGameManager : NetworkBehaviour
     public int countNeededPlayer = 2;
     private NetworkManager networkManager;
 
+    bool endReached = false;
+
     void Awake()
     {
         if(null == MainGameManager.singleton){
@@ -42,33 +44,44 @@ public class MainGameManager : NetworkBehaviour
         if(!isServer)
             return;
 
-        if(teamBase1.currentPression >= teamBase1.neededPressionToWin)
+        if (!endReached)
         {
-            EventManager.TriggerEvent<EndGameEvent>(new EndGameEvent(1));
-            foreach(GameObject go in GameObject.FindGameObjectsWithTag("Player")) {
-              go.GetComponent<Player>().RpcPrepareToEndGame(teamBase1.currentPression, teamBase2.currentPression);
+            if (teamBase1.currentPression >= teamBase1.neededPressionToWin)
+            {
+                EventManager.TriggerEvent<EndGameEvent>(new EndGameEvent(1));
+                endReached = true;
+                foreach (GameObject go in GameObject.FindGameObjectsWithTag("Player"))
+                {
+                    go.GetComponent<Player>().RpcPrepareToEndGame(teamBase1.currentPression, teamBase2.currentPression);
+                }
+            }
+
+            else if (teamBase2.currentPression >= teamBase2.neededPressionToWin)
+            {
+                EventManager.TriggerEvent<EndGameEvent>(new EndGameEvent(2));
+                endReached = true;
+                foreach (GameObject go in GameObject.FindGameObjectsWithTag("Player"))
+                {
+                    go.GetComponent<Player>().RpcPrepareToEndGame(teamBase1.currentPression, teamBase2.currentPression);
+                }
+            }
+
+            int countReadyPlayerForChangeScene = 0;
+
+            foreach (GameObject go in GameObject.FindGameObjectsWithTag("Player"))
+            {
+                if (go.GetComponent<Player>().isReady)
+                    countReadyPlayerForChangeScene++;
+            }
+
+            if (countReadyPlayerForChangeScene == countNeededPlayer) // !!!!!!!! AJOUTER UN DELAIS POUR VOIR L'ANIMATION DE LA FUSEE !!!!!!!!!!!!!!!!!!!!!!!! 
+            {
+                networkManager.ServerChangeScene("SceneFin");
             }
         }
+        
 
-        else if(teamBase2.currentPression >= teamBase2.neededPressionToWin)
-        {
-            EventManager.TriggerEvent<EndGameEvent>(new EndGameEvent(2));
-            foreach (GameObject go in GameObject.FindGameObjectsWithTag("Player")) {
-              go.GetComponent<Player>().RpcPrepareToEndGame(teamBase1.currentPression, teamBase2.currentPression);
-            }
-        }
-
-        int countReadyPlayerForChangeScene = 0;
-
-        foreach(GameObject go in GameObject.FindGameObjectsWithTag("Player")) {
-            if(go.GetComponent<Player>().isReady)
-                countReadyPlayerForChangeScene++;
-        }
-
-        if(countReadyPlayerForChangeScene == countNeededPlayer) // !!!!!!!! AJOUTER UN DELAIS POUR VOIR L'ANIMATION DE LA FUSEE !!!!!!!!!!!!!!!!!!!!!!!! 
-        {
-            networkManager.ServerChangeScene("SceneFin");
-        }
+       
     }
 
     public Vector3 GetSpawnPosition(int team)

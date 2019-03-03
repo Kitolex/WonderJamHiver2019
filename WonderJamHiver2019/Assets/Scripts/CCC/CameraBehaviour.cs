@@ -17,6 +17,10 @@ public class CameraBehaviour : MonoBehaviour, EventListener<EndGameEvent>
     public float SmoothSpeed = 0.1f;
 
     public bool IsFollowingPlayer = true;
+    public bool IsFollowingBase = false;
+    int winnerTeam;
+
+    Vector3 soluceDeSecour; //Corrige les problème de shaking
 
     // Start is called before the first frame update
     void Start()
@@ -32,17 +36,26 @@ public class CameraBehaviour : MonoBehaviour, EventListener<EndGameEvent>
         if (!player)
             return;
 
-        if (!IsFollowingPlayer)
-            return;
+        if (IsFollowingPlayer)
+        {
+            Vector3 desiredPosition = new Vector3(0, 0, -Distance);
+            desiredPosition = Quaternion.AngleAxis(Angle, Vector3.right) * desiredPosition;
+            desiredPosition = player.transform.position + desiredPosition + CameraOffset;
 
-        Vector3 desiredPosition = new Vector3(0, 0, -Distance);
-        desiredPosition = Quaternion.AngleAxis(Angle, Vector3.right) * desiredPosition;
-        desiredPosition = player.transform.position + desiredPosition + CameraOffset;
+            Vector3 smoothPostion = Vector3.Lerp(transform.position, desiredPosition, SmoothSpeed);
 
-        Vector3 smoothPostion = Vector3.Lerp(transform.position, desiredPosition, SmoothSpeed);
+            transform.position = smoothPostion;
+            transform.rotation = Quaternion.Euler(new Vector3(Angle, 0, 0));
+        }
 
-        transform.position = smoothPostion;
-        transform.rotation = Quaternion.Euler(new Vector3(Angle, 0, 0));
+        if (IsFollowingBase)
+        {
+            if (winnerTeam == 1)
+                transform.LookAt(new Vector3(soluceDeSecour.x, Base1.transform.position.y, soluceDeSecour.z));
+            else
+                transform.LookAt(new Vector3(soluceDeSecour.x, Base2.transform.position.y, soluceDeSecour.z));
+        }
+
     }
 
 
@@ -72,6 +85,7 @@ public class CameraBehaviour : MonoBehaviour, EventListener<EndGameEvent>
         float timeStart = Time.time;
         Vector3 initialPosition = transform.position;
         Vector3 destination;
+        this.winnerTeam = winnerTeam;
 
         if(winnerTeam == 1)
         {
@@ -79,6 +93,7 @@ public class CameraBehaviour : MonoBehaviour, EventListener<EndGameEvent>
             destination = Quaternion.AngleAxis(Angle, Vector3.right) * destination;
             destination = Base1.transform.position + destination + CameraOffset;
             transform.rotation = Quaternion.Euler(new Vector3(Angle, 0, 0));
+            soluceDeSecour = Base1.transform.position;
         }
         else
         {
@@ -86,6 +101,7 @@ public class CameraBehaviour : MonoBehaviour, EventListener<EndGameEvent>
             destination = Quaternion.AngleAxis(Angle, Vector3.right) * destination;
             destination = Base2.transform.position + destination + CameraOffset;
             transform.rotation = Quaternion.Euler(new Vector3(Angle, 0, 0));
+            soluceDeSecour = Base2.transform.position;
         }
          
 
@@ -95,5 +111,6 @@ public class CameraBehaviour : MonoBehaviour, EventListener<EndGameEvent>
             yield return null;
         }
 
+        IsFollowingBase = true;
     }
 }

@@ -16,6 +16,8 @@ public class BaseIndicatorBehaviour : MonoBehaviour, EventListener<LocalPlayerSt
     bool isVisible = false;
     bool stopped = false;
 
+
+
     // Start is called before the first frame update
     void Start()
     {
