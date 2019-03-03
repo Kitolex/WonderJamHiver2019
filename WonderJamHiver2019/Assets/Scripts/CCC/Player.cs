@@ -45,6 +45,13 @@ public class Player : NetworkBehaviour
     public SpriteRenderer spriteRenderer;
     CapsuleCollider capsuleCollider;
 
+    private AudioSource audioSource;
+
+    [Header("Sounds")]
+    public float volumePick = 0.15f;
+    public AudioClip pick1;
+    public AudioClip pick2;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -60,12 +67,14 @@ public class Player : NetworkBehaviour
         }
 
         capsuleCollider = GetComponent<CapsuleCollider>();
+        audioSource = GetComponent<AudioSource>();
     }
 
     public override void OnStartLocalPlayer()
     {
         Camera.main.GetComponent<CameraBehaviour>().AssignPlayer(gameObject);
         EventManager.TriggerEvent<LocalPlayerStartEvent>(new LocalPlayerStartEvent(gameObject));
+        GetComponent<AudioListener>().enabled = true;
     }
 
     // Update is called once per frame
@@ -179,7 +188,8 @@ public class Player : NetworkBehaviour
     [ClientRpc]
     public void RpcCollectRessource()
     {
-        //EFFET VISUEL
+        //EFFET SONOR ET VISUEL
+        audioSource.PlayOneShot(UnityEngine.Random.Range(0.0f, 1.0f) > 0.5f ? pick1 : pick2, volumePick * UnityEngine.Random.Range(0.7f, 0.9f));
     }
 
     [Command]

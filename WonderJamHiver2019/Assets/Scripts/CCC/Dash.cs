@@ -34,6 +34,8 @@ public class Dash : NetworkBehaviour
     Player player;
 
     public Animator animator;
+    public GameObject prefabDashWindFX;
+    public GameObject prefabDashWindOtherSideFX;
 
 
     void Start()
@@ -84,13 +86,16 @@ public class Dash : NetworkBehaviour
 
         if (this.isDashing && collision.gameObject.tag.Equals("Player"))
         {
+            Player otherPlayer = collision.gameObject.GetComponent<Player>();
+
+            if(otherPlayer.team == this.player.team)
+                return;
+
             this.dashEffectPercentage = Mathf.Clamp( (inputTimer - Time.time) / InputReactivationCooldowwn , minDashEffect, maxDashEffect);
             collision.gameObject.GetComponent<Dash>().RpcCasseToi((collision.transform.position - this.transform.position).normalized, dashEffectPercentage);
             RpcTriggerContactAnimation();
         }
     }
-
-
 
     void StartDash()
     {
@@ -129,6 +134,10 @@ public class Dash : NetworkBehaviour
         rb.AddForce(direction * DashSpeed, ForceMode.Impulse);
         animator.SetTrigger("startDashing");
         animator.SetBool("isDoneDashing", false);
+        if(direction.x > 0)
+            Instantiate(prefabDashWindFX, this.transform.position, Quaternion.FromToRotation(this.transform.forward, -direction));
+        else
+            Instantiate(prefabDashWindOtherSideFX, this.transform.position, Quaternion.FromToRotation(this.transform.forward, -direction));
     }
 
     [ClientRpc]
