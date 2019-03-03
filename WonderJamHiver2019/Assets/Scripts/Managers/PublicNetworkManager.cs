@@ -142,7 +142,7 @@ public class PublicNetworkManager : MonoBehaviour
             {
                 if (eventPublic.Equals("Reverse"))
                 {
-                    //TODO : tjfjcb
+                    p.RpcStartBeingHacked();
                 }
             }
         }
