@@ -63,8 +63,6 @@ public class Player : NetworkBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        team = 0;
-        realTeam = 0;
         enterTeamZone = false;
 
         if(isLocalPlayer && PlayerState.singleton.inGame)
@@ -75,6 +73,8 @@ public class Player : NetworkBehaviour
         }
 
         capsuleCollider = GetComponent<CapsuleCollider>();
+        
+        spriteRenderer = GetComponentInChildren<SpriteRenderer>();
     }
 
     public override void OnStartLocalPlayer()
@@ -90,6 +90,8 @@ public class Player : NetworkBehaviour
         audioSourceRessourceGive.volume = Mathf.SmoothDamp(audioSourceRessourceGive.volume, isGivingRessource ? volumeGiveToBase : 0.0f, ref velocityVolumeGiveToBase, smoothTime);
         audioSourceRessourceTake.volume = Mathf.SmoothDamp(audioSourceRessourceTake.volume, isTakingRessource ? volumeTakeFromBase : 0.0f, ref velocityVolumeTakeFromBase, smoothTime);
         
+        spriteRenderer.material.SetInt("_Team", team);
+
         if (enterTeamZone)
         {
             if ((Input.GetButtonDown("Fire1") || Input.GetKeyDown(KeyCode.E)) && this.realTeam == 0)
@@ -247,7 +249,7 @@ public class Player : NetworkBehaviour
     [ClientRpc]
     public void RpcUpdateTeamColorOnPlayer(int team)
     {
-        GetComponentInChildren<SpriteRenderer>().material.SetInt("_Team", team);
+        spriteRenderer.material.SetInt("_Team", team);
     }
 
     [Command]
