@@ -15,6 +15,8 @@ public class PublicNetworkManager : MonoBehaviour
 
     public static PublicNetworkManager singleton;
 
+    public bool active;
+
     
 
     public void Awake()
@@ -24,6 +26,7 @@ public class PublicNetworkManager : MonoBehaviour
             PublicNetworkManager.singleton = this;
         }
         DontDestroyOnLoad(this.gameObject);
+        active = false;
     }
 
     // Start is called before the first frame update

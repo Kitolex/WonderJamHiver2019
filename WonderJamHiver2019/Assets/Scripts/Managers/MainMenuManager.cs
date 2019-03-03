@@ -41,12 +41,14 @@ public class MainMenuManager : MonoBehaviour
         
     }
 
-    public void CreatePartie()
+    public void CreateAndHostPartie()
     {
+        PublicNetworkManager.singleton.active = true;
         PublicNetworkManager.singleton.StartCoroutine(PublicNetworkManager.singleton.CreatePartie(namePartie.text));
     }
     public void HostPartie()
     {
+        PublicNetworkManager.singleton.active = false;
         networkManager.StartHost();
     }
 
