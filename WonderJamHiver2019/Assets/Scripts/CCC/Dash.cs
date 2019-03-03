@@ -89,7 +89,7 @@ public class Dash : NetworkBehaviour
         {
             Player otherPlayer = collision.gameObject.GetComponent<Player>();
 
-            if(otherPlayer.team == this.player.team)
+            if(otherPlayer.team == this.player.team && this.player.team != 0)
                 return;
 
             this.dashEffectPercentage = Mathf.Clamp( (inputTimer - Time.time) / InputReactivationCooldowwn , minDashEffect, maxDashEffect);
