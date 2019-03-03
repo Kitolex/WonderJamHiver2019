@@ -23,6 +23,9 @@ public class Player : NetworkBehaviour
     [SyncVar]
     public int realTeam;
 
+    [SyncVar]
+    public int playerID;
+
     public bool isReady;
 
     public bool enterTeamZone;
@@ -53,6 +56,7 @@ public class Player : NetworkBehaviour
         {
             CmdSpawnMeInMyBase(PlayerState.singleton.myTeam);
             CmdSetTeam(PlayerState.singleton.myTeam);
+            CmdSetPlayerID(PlayerState.singleton.playerID);
         }
 
         capsuleCollider = GetComponent<CapsuleCollider>();
@@ -82,6 +86,7 @@ public class Player : NetworkBehaviour
                 Debug.Log("Suprresion Equipe");
                 CmdResetRealTeam();
                 PlayerState.singleton.myTeam = 0;
+                PlayerState.singleton.playerID = 0;
             }
         }
 
@@ -169,11 +174,17 @@ public class Player : NetworkBehaviour
     {
         this.realTeam = team;
         RpcSetActivePlayer(false);
-        GameObject.FindGameObjectWithTag("LobbyManager").GetComponent<LobbyManager>().AddReadyPlayer();
+        LobbyManager.singleton.AddReadyPlayer();
         if(team == 1)
+        {
+            this.playerID = LobbyManager.singleton.teamLobbyManager1.GetMyPlayerIdForThisGame();
             LobbyManager.singleton.teamLobbyManager1.nbInThisTeam++;
+        }
         if(team == 2)
+        {
+            this.playerID = LobbyManager.singleton.teamLobbyManager2.GetMyPlayerIdForThisGame();
             LobbyManager.singleton.teamLobbyManager2.nbInThisTeam++;
+        }
         GetComponentInChildren<SpriteRenderer>().material.SetInt("_Team", team);
     }
 
@@ -182,11 +193,12 @@ public class Player : NetworkBehaviour
     {
         this.realTeam = 0;
         RpcSetActivePlayer(true);
-        GameObject.FindGameObjectWithTag("LobbyManager").GetComponent<LobbyManager>().RemoveReadyPlayer();
+        LobbyManager.singleton.RemoveReadyPlayer();
         if(team == 1)
             LobbyManager.singleton.teamLobbyManager1.nbInThisTeam--;
         if(team == 2)
             LobbyManager.singleton.teamLobbyManager2.nbInThisTeam--;
+        this.playerID = 0;
         GetComponentInChildren<SpriteRenderer>().material.SetInt("_Team", team);
     }
 
@@ -194,8 +206,13 @@ public class Player : NetworkBehaviour
     public void CmdSetTeam(int team)
     {
         this.team = team;
-        //GameObject.FindGameObjectWithTag("LobbyManager").GetComponent<LobbyManager>().RemoveReadyPlayer();
         GetComponentInChildren<SpriteRenderer>().material.SetInt("_Team", team);
+    }
+
+    [Command]
+    public void CmdSetPlayerID(int id)
+    {
+        this.playerID = id;
     }
 
     [ClientRpc]
@@ -214,7 +231,10 @@ public class Player : NetworkBehaviour
     {
         PlayerState.singleton.inGame = true;
         if(isLocalPlayer)
+        {
+            PlayerState.singleton.playerID = this.playerID;
             CmdIsReady();
+        }
     }
 
     [Command]

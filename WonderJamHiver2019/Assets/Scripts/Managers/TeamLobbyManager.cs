@@ -10,6 +10,7 @@ public class TeamLobbyManager : NetworkBehaviour
 
     [SyncVar]
     public int nbInThisTeam;
+    public int startPlayerID;
 
     // Start is called before the first frame update
     void Start()
@@ -54,4 +55,8 @@ public class TeamLobbyManager : NetworkBehaviour
         }
     }
 
+    public int GetMyPlayerIdForThisGame()
+    {
+        return this.startPlayerID + this.nbInThisTeam;
+    }
 }
