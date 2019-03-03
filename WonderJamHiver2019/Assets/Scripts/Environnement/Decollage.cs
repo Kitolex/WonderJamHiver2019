@@ -5,6 +5,7 @@ using Events;
 
 public class Decollage : MonoBehaviour, EventListener<EndGameEvent>
 {
+
     void OnEnable()
     {
         this.EventStartListening<EndGameEvent>();
