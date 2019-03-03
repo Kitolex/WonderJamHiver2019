@@ -48,6 +48,7 @@ MonoBehaviour:
   team2StartPositions: []
   teamBase1: {fileID: 0}
   teamBase2: {fileID: 0}
+  countNeededPlayer: 2
 --- !u!114 &4233025069851766042
 MonoBehaviour:
   m_ObjectHideFlags: 0

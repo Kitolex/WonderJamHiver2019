@@ -3,8 +3,9 @@ using System.Collections.Generic;
 using UnityEngine;
 using Events;
 
-public class Decollage : MonoBehaviour, EventListener<EndGameEvent>
+public class AuSecour : MonoBehaviour, EventListener<EndGameEvent>
 {
+
     void OnEnable()
     {
         this.EventStartListening<EndGameEvent>();
@@ -16,11 +17,12 @@ public class Decollage : MonoBehaviour, EventListener<EndGameEvent>
 
     public void OnEvent(EndGameEvent eventType)
     {
+        Debug.Log("Hoy");
         if (GetComponent<Base>().team == eventType.winnerTeam)
-        {           
+        {
             StartCoroutine(EndGameCoroutine());
         }
-           
+
     }
 
     IEnumerator EndGameCoroutine()

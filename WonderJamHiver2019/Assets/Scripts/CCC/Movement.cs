@@ -29,6 +29,11 @@ public class Movement : NetworkBehaviour
     bool isStuned;
     public GameObject stundEffect;
 
+    private float hackTimer;
+    public bool isHacked;
+    public GameObject hackEffectStart;
+    public GameObject hackEffectDuration;
+
     public Animator animator;
     public SpriteRenderer spriteRenderer;
     private Player player;
@@ -50,7 +55,18 @@ public class Movement : NetworkBehaviour
     void Update()
     {
         if(Time.time > stunTimer && isStuned)
+        {
+            isStuned = false;
+            canMove = true;
             stundEffect.SetActive(false);
+        }
+
+        if(Time.time > hackTimer && isHacked)
+        {
+            isHacked = false;
+            hackEffectDuration.SetActive(false);
+            player.audioSourceHackDuration.Stop();
+        }
 
         if (!isLocalPlayer)
         {
@@ -59,18 +75,18 @@ public class Movement : NetworkBehaviour
 
         GetAxis();
         ApplyMovement();
-
-        if(Time.time > stunTimer && isStuned)
-        {
-            isStuned = false;
-            canMove = true;
-        }
     }
 
     void GetAxis()
     {
         horizontalAxis = Input.GetAxis("Horizontal");
         verticalAxis = Input.GetAxis("Vertical");
+
+        if(isHacked)
+        {
+            horizontalAxis *= -1.0f;
+            verticalAxis *= -1.0f;
+        }
     }
 
     void ApplyMovement()
@@ -123,6 +139,14 @@ public class Movement : NetworkBehaviour
         isStuned = true;
         stundEffect.SetActive(true);
         stunTimer = Time.time + stunedTime;
+    }
+
+    public void isHackedFor(float hackTime)
+    {
+        isHacked = true;
+        Instantiate(hackEffectStart, this.transform.position + this.transform.up * 8.0f - this.transform.forward * 5.0f, Quaternion.FromToRotation(this.transform.forward, this.transform.up));
+        hackEffectDuration.SetActive(true);
+        hackTimer = Time.time + hackTime;
     }
 
     [Command]
