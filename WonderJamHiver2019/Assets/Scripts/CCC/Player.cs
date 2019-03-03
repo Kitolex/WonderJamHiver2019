@@ -45,12 +45,19 @@ public class Player : NetworkBehaviour
     public SpriteRenderer spriteRenderer;
     CapsuleCollider capsuleCollider;
 
-    private AudioSource audioSource;
+    public AudioSource audioSourceRessourceCollect;
+    public AudioSource audioSourceRessourceGive;
+    public AudioSource audioSourceRessourceTake;
 
     [Header("Sounds")]
     public float volumePick = 0.15f;
     public AudioClip pick1;
     public AudioClip pick2;
+    public float volumeGiveToBase = 0.2f;
+    public float volumeTakeFromBase = 0.3f;
+    private float velocityVolumeGiveToBase = 0.0f;
+    private float velocityVolumeTakeFromBase = 0.0f;
+    private float smoothTime = 0.3f;
 
     // Start is called before the first frame update
     void Start()
@@ -67,7 +74,6 @@ public class Player : NetworkBehaviour
         }
 
         capsuleCollider = GetComponent<CapsuleCollider>();
-        audioSource = GetComponent<AudioSource>();
     }
 
     public override void OnStartLocalPlayer()
@@ -80,6 +86,9 @@ public class Player : NetworkBehaviour
     // Update is called once per frame
     void Update()
     {
+        audioSourceRessourceGive.volume = Mathf.SmoothDamp(audioSourceRessourceGive.volume, isGivingRessource ? volumeGiveToBase : 0.0f, ref velocityVolumeGiveToBase, smoothTime);
+        audioSourceRessourceTake.volume = Mathf.SmoothDamp(audioSourceRessourceTake.volume, isTakingRessource ? volumeTakeFromBase : 0.0f, ref velocityVolumeTakeFromBase, smoothTime);
+        
         if (enterTeamZone)
         {
             if ((Input.GetButtonDown("Fire1") || Input.GetKeyDown(KeyCode.E)) && this.realTeam == 0)
@@ -120,6 +129,16 @@ public class Player : NetworkBehaviour
             else if (Input.GetButtonUp("Fire4") && !isGivingRessource && isTakingRessource)
             {
                 Debug.Log("Stop Take Ressource from Base");
+                CmdStopTakeRessourceFromBase();
+            }
+
+            if(ressourceCount == 0 && isGivingRessource)
+            {
+                CmdStopGiveRessourceToBase();
+            }
+
+            if(PlayerState.singleton.myBase.currentPression == 0 && isTakingRessource)
+            {
                 CmdStopTakeRessourceFromBase();
             }
         }
@@ -189,7 +208,7 @@ public class Player : NetworkBehaviour
     public void RpcCollectRessource()
     {
         //EFFET SONOR ET VISUEL
-        audioSource.PlayOneShot(UnityEngine.Random.Range(0.0f, 1.0f) > 0.5f ? pick1 : pick2, volumePick * UnityEngine.Random.Range(0.7f, 0.9f));
+        audioSourceRessourceCollect.PlayOneShot(UnityEngine.Random.Range(0.0f, 1.0f) > 0.5f ? pick1 : pick2, volumePick * UnityEngine.Random.Range(0.7f, 0.9f));
     }
 
     [Command]
