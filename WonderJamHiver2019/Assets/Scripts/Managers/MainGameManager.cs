@@ -21,6 +21,13 @@ public class MainGameManager : NetworkBehaviour
     public int countNeededPlayer = 2;
     private NetworkManager networkManager;
 
+    [SyncVar]
+    public int timeLeft;
+
+    private int timeLeftTmp;
+    private float startTime;
+    public int matchDuration = 300;
+
     bool endReached = false;
 
     void Awake()
@@ -28,6 +35,11 @@ public class MainGameManager : NetworkBehaviour
         if(null == MainGameManager.singleton){
             MainGameManager.singleton = this;
         }
+
+        if (!isServer)
+            return;
+
+        this.timeLeft = matchDuration;
     }
 
     // Start is called before the first frame update
@@ -43,6 +55,30 @@ public class MainGameManager : NetworkBehaviour
     {
         if(!isServer)
             return;
+
+        this.timeLeftTmp = (int)Mathf.Floor(matchDuration + (startTime - Time.time));
+        updateTimeLeft();
+
+        if (timeLeft <= 0)
+        {
+            EndGameEvent endGameEvent = new EndGameEvent(0);
+            if (teamBase1.currentPression > teamBase2.currentPression)
+            {
+                endGameEvent = new EndGameEvent(1);
+            }
+            else if (teamBase2.currentPression > teamBase1.currentPression)
+            {
+                endGameEvent = new EndGameEvent(2);
+            }
+
+            EventManager.TriggerEvent<EndGameEvent>(endGameEvent);
+            foreach (GameObject go in GameObject.FindGameObjectsWithTag("Player"))
+            {
+                go.GetComponent<Player>().RpcPrepareToEndGame(teamBase1.currentPression, teamBase2.currentPression);
+            }
+
+            endReached = true;
+        }
 
         if (!endReached)
         {
@@ -100,5 +136,13 @@ public class MainGameManager : NetworkBehaviour
             nextSpawnTeam2 = (nextSpawnTeam2 + 1) % team2StartPositions.Count;
         }
         return result;
+    }
+
+    public void updateTimeLeft()
+    {
+        if (this.timeLeft == this.timeLeftTmp)
+            return;
+
+        this.timeLeft = this.timeLeftTmp;
     }
 }
