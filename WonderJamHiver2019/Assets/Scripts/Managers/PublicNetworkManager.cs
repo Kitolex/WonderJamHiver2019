@@ -161,7 +161,7 @@ public class PublicNetworkManager : MonoBehaviour
             {
                 if (eventPublic.Equals("Reverse"))
                 {
-                    StartCoroutine(ShowMessage("!! DANGER !! You have been hacked", new Color32(200, 45, 45, 255), 4));
+                    StartCoroutine(ShowMessage("!! DANGER !! Something incoming...", new Color32(200, 45, 45, 255), 4));
                 }
             }
         }
