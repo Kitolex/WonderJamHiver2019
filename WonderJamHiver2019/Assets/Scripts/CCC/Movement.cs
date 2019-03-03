@@ -27,6 +27,7 @@ public class Movement : NetworkBehaviour
 
     float stunTimer;
     bool isStuned;
+    public GameObject stundEffect;
 
     public Animator animator;
     public SpriteRenderer spriteRenderer;
@@ -48,7 +49,10 @@ public class Movement : NetworkBehaviour
     // Update is called once per frame
     void Update()
     {
-       if (!isLocalPlayer)
+        if(Time.time > stunTimer && isStuned)
+            stundEffect.SetActive(false);
+
+        if (!isLocalPlayer)
         {
             return;
         }           
@@ -117,6 +121,7 @@ public class Movement : NetworkBehaviour
     {
         canMove = false;
         isStuned = true;
+        stundEffect.SetActive(true);
         stunTimer = Time.time + stunedTime;
     }
 

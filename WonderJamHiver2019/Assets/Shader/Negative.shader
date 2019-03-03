@@ -7,8 +7,17 @@
     }
     SubShader
     {
+        Tags
+        {
+            "Queue"="Transparent"
+            "IgnoreProjector"="True"
+            "RenderType"="TransparentCutout"
+            "PreviewType"="Plane"
+            "CanUseSpriteAtlas"="True"
+        }
+
         // No culling or depth
-        Cull Off ZWrite Off ZTest Always
+        Cull Off ZWrite Off
 
 		Blend SrcAlpha OneMinusSrcAlpha
 
@@ -58,4 +67,6 @@
             ENDCG
         }
     }
+
+    Fallback "Sprites/Default"
 }
