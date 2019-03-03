@@ -38082,6 +38082,11 @@ PrefabInstance:
       propertyPath: teamBase2
       value: 
       objectReference: {fileID: 2037116991}
+    - target: {fileID: 7673347504909979458, guid: 5f767461f2bf81d448703351260674da,
+        type: 3}
+      propertyPath: DistanceAffichage
+      value: 15
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 5f767461f2bf81d448703351260674da, type: 3}
 --- !u!224 &1803700267 stripped

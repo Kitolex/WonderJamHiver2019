@@ -947,6 +947,11 @@ PrefabInstance:
       propertyPath: teamLobby
       value: 2
       objectReference: {fileID: 0}
+    - target: {fileID: 8468619453501543849, guid: 3c1a348b06b0fa34facd9b0088a47a10,
+        type: 3}
+      propertyPath: startPlayerID
+      value: 4
+      objectReference: {fileID: 0}
     - target: {fileID: 8468619453501543851, guid: 3c1a348b06b0fa34facd9b0088a47a10,
         type: 3}
       propertyPath: m_Enabled
@@ -2475,6 +2480,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalScale.y
       value: 1.4512501
+      objectReference: {fileID: 0}
+    - target: {fileID: 8468619453501543849, guid: 3c1a348b06b0fa34facd9b0088a47a10,
+        type: 3}
+      propertyPath: startPlayerID
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 8468619453501543851, guid: 3c1a348b06b0fa34facd9b0088a47a10,
         type: 3}

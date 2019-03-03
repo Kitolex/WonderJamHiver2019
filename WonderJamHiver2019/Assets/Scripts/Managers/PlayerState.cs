@@ -7,6 +7,7 @@ public class PlayerState : MonoBehaviour
     public static PlayerState singleton;
 
     public int myTeam;
+    public int playerID;
 
     public bool inGame;
     public bool inEndGame;
