@@ -8,10 +8,10 @@ public class SpriteOrientationBehavior : MonoBehaviour
 
     void Start()
     {
-        SpriteRenderer sr = this.GetComponentInChildren<SpriteRenderer>();
+//        SpriteRenderer sr = this.GetComponentInChildren<SpriteRenderer>();
 		
-		sr.shadowCastingMode = ShadowCastingMode.On;
-		sr.receiveShadows = true;
+//		sr.shadowCastingMode = ShadowCastingMode.On;
+//		sr.receiveShadows = true;
     }
 
     // Update is called once per frame
