@@ -76,10 +76,11 @@ public class PublicNetworkManager : MonoBehaviour
             timeLeftToPublicPlay -= Time.deltaTime;
             if (timeLeftToPublicPlay < 0)
             {
-                GestionLoop();
+
                 Debug.Log("A new Challenger In Comming");
+
+                StartCoroutine(LaunchPartie(namePartie));                          
                 activeTimerForPublicToPlay = false;
-                StartCoroutine(LaunchPartie(namePartie));
             }
         }
 
@@ -89,8 +90,9 @@ public class PublicNetworkManager : MonoBehaviour
             if (timeLeftBetweenEvent < 0)
             {
                 Debug.Log("GO EVENT");
-                ApplyEventOnPlayer();
                 activeTimerBetween = false;
+                ApplyEventOnPlayer();
+                
             }
         }
 
@@ -123,14 +125,15 @@ public class PublicNetworkManager : MonoBehaviour
     public void ActiveEvent(string eventPublic)
     {
         Debug.Log("Debut Syteme : " + eventPublic);
+        timeLeftBetweenEvent =timeBetweenEvent ;
         activeTimerBetween = true;
 
         string[] action = eventPublic.Split(':');
 
         playerID = int.Parse(action[0].Substring(action[0].Length - 1));
         Debug.Log(playerID);
-        eventPublic = action[1];
-        Debug.Log(eventPublic);
+        this.eventPublic = action[1];
+        Debug.Log(this.eventPublic);
 
     }
 
@@ -143,6 +146,7 @@ public class PublicNetworkManager : MonoBehaviour
                 if (eventPublic.Equals("Reverse"))
                 {
                     p.RpcStartBeingHacked();
+                    GestionLoop();
                 }
             }
         }
