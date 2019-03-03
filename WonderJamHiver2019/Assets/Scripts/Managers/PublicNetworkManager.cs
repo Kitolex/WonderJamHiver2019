@@ -7,12 +7,14 @@ public class PublicNetworkManager : MonoBehaviour
 {
     private const string URL_VOTE = "http://localhost:5000/api/vote";
     private const string URL_CREATE_PARTIE = "http://localhost:5000/api/create";
+    private const string URL_DELETE_PARTIE = "http://localhost:5000/api/partie";
 
     // Start is called before the first frame update
     void Start()
     {
         // StartCoroutine(CreatePartie("Partie1")); 
-         //StartCoroutine(GetChoicePublic("Partie1")); 
+        //StartCoroutine(GetChoicePublic("Partie1")); 
+        //StartCoroutine(DeleteParty("Partie1"));
     }
 
     // Update is called once per frame
@@ -51,9 +53,22 @@ public class PublicNetworkManager : MonoBehaviour
         }
 
     }
+
+    IEnumerator DeleteParty(string namePartie)
+    {
+        string URL = URL_DELETE_PARTIE + "/" + namePartie;
+        UnityWebRequest www = UnityWebRequest.Delete(URL);
+        yield return www.SendWebRequest();
+        if (www.isNetworkError || www.isHttpError)
+        {
+            Debug.Log("ERROR");
+        }
+        else
+        {
+            Debug.Log("OK");
+        }
+
+    }
 }
 
-public class PartieItem
-{
-    public string namePartie;
-}
+
