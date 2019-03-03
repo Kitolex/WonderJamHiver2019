@@ -24,7 +24,7 @@ public class SonDecollage : MonoBehaviour,EventListener<EndGameEvent>
 
 	IEnumerator EndGameCoroutine()
 	{
-		yield return new WaitForSeconds(2);
+		yield return new WaitForSeconds(1);
 		source = GetComponent<AudioSource>();
 		source.PlayOneShot(ClipDecollage,1.0F);
 	}
