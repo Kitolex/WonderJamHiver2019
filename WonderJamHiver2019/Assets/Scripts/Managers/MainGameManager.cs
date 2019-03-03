@@ -54,6 +54,7 @@ public class MainGameManager : NetworkBehaviour
                 {
                     go.GetComponent<Player>().RpcPrepareToEndGame(teamBase1.currentPression, teamBase2.currentPression);
                 }
+                StartCoroutine(EndGameCoroutine());
             }
 
             else if (teamBase2.currentPression >= teamBase2.neededPressionToWin)
@@ -64,6 +65,7 @@ public class MainGameManager : NetworkBehaviour
                 {
                     go.GetComponent<Player>().RpcPrepareToEndGame(teamBase1.currentPression, teamBase2.currentPression);
                 }
+                StartCoroutine(EndGameCoroutine());
             }
 
             int countReadyPlayerForChangeScene = 0;
@@ -100,5 +102,11 @@ public class MainGameManager : NetworkBehaviour
             nextSpawnTeam2 = (nextSpawnTeam2 + 1) % team2StartPositions.Count;
         }
         return result;
+    }
+
+    IEnumerator EndGameCoroutine()
+    {
+        yield return new WaitForSeconds(10);
+        networkManager.ServerChangeScene("SceneFin");
     }
 }

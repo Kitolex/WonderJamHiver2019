@@ -41,7 +41,6 @@ public class GameOverManager : NetworkBehaviour
             whoWon.text = "Green team won!";
             whoWon.color = new Color32(104, 150, 66, 255);
         }
-
         else { 
             whoWon.text = "It's a TIE!";
             whoWon.color = Color.white;
