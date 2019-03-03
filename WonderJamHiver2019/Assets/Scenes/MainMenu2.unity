@@ -4052,5 +4052,20 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 767160450799955164, guid: fc9537e05bf6d7349bedd4ca181937ef,
+        type: 3}
+      propertyPath: minTimeToPublicPlay
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 767160450799955164, guid: fc9537e05bf6d7349bedd4ca181937ef,
+        type: 3}
+      propertyPath: timeGetter
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 767160450799955164, guid: fc9537e05bf6d7349bedd4ca181937ef,
+        type: 3}
+      propertyPath: timeBetweenEvent
+      value: 5
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: fc9537e05bf6d7349bedd4ca181937ef, type: 3}

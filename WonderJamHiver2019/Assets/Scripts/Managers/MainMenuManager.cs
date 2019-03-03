@@ -64,7 +64,8 @@ public class MainMenuManager : MonoBehaviour
     public void StartClient()
     {
         networkManager.networkAddress = this.adresseServer.text;
-        if(this.adresseServer.text.Equals(""))
+        PublicNetworkManager.singleton.active = false;
+        if (this.adresseServer.text.Equals(""))
             networkManager.networkAddress = "localhost";
         networkManager.StartClient();
     }
