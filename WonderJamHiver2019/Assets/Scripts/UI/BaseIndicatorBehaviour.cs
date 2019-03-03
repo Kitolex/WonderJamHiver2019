@@ -4,7 +4,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using Events;
 
-public class BaseIndicatorBehaviour : MonoBehaviour, EventListener<LocalPlayerStartEvent>
+public class BaseIndicatorBehaviour : MonoBehaviour, EventListener<LocalPlayerStartEvent>, EventListener<EndGameEvent>
 {
     RectTransform rTransf;
     Image img;
@@ -14,6 +14,9 @@ public class BaseIndicatorBehaviour : MonoBehaviour, EventListener<LocalPlayerSt
     public float DistanceAffichage;
 
     bool isVisible = false;
+    bool stopped = false;
+
+
 
     // Start is called before the first frame update
     void Start()
@@ -42,7 +45,7 @@ public class BaseIndicatorBehaviour : MonoBehaviour, EventListener<LocalPlayerSt
     // Update is called once per frame
     void Update()
     {
-        if (!player || !PlayerState.singleton.myBase)
+        if (!player || !PlayerState.singleton.myBase || stopped)
             return;
 
         Vector2 orientation = new Vector2(player.transform.position.x - PlayerState.singleton.myBase.transform.position.x, player.transform.position.z - PlayerState.singleton.myBase.transform.position.z);
@@ -58,12 +61,6 @@ public class BaseIndicatorBehaviour : MonoBehaviour, EventListener<LocalPlayerSt
         
         rTransf.rotation = Quaternion.Euler(0, 0, angle);
 
-        Vector3 iconPosition = Camera.main.WorldToScreenPoint(PlayerState.singleton.myBase.transform.position) - new Vector3((Screen.width / 2f), (Screen.height / 2f),0);
-        
-        iconPosition.x = Mathf.Clamp(iconPosition.x, -(Screen.width / 2f) + 35, (Screen.width / 2f) - 35);
-        iconPosition.y = Mathf.Clamp(iconPosition.y, -(Screen.height / 2f) + 35, (Screen.height / 2f) - 35);
-
-        rTransf.localPosition = iconPosition;
     }
 
     public void ShowIndicator()
@@ -86,13 +83,21 @@ public class BaseIndicatorBehaviour : MonoBehaviour, EventListener<LocalPlayerSt
         player = eventType.localPlayer;
     }
 
+    public void OnEvent(EndGameEvent eventType)
+    {
+        HideIndicator();
+        stopped = true;
+    }
+
     void OnEnable()
     {
         this.EventStartListening<LocalPlayerStartEvent>();
+        this.EventStartListening<EndGameEvent>();
     }
 
     void OnDisable()
     {
     	this.EventStopListening<LocalPlayerStartEvent>();
+        this.EventStopListening<EndGameEvent>();
     }
 }

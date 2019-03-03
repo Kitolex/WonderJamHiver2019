@@ -11,7 +11,7 @@ public class PromptBase : MonoBehaviour
 
     private void Update()
     {
-        transform.LookAt(Camera.main.transform);
+        //transform.LookAt(Camera.main.transform);
     }
 
     private void OnTriggerEnter(Collider other)

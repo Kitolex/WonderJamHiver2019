@@ -48,6 +48,7 @@ public class Player : NetworkBehaviour
     public AudioSource audioSourceRessourceCollect;
     public AudioSource audioSourceRessourceGive;
     public AudioSource audioSourceRessourceTake;
+    public AudioSource audioSourceHackDuration;
 
     [Header("Sounds")]
     public float volumePick = 0.15f;
@@ -93,7 +94,6 @@ public class Player : NetworkBehaviour
         {
             if ((Input.GetButtonDown("Fire1") || Input.GetKeyDown(KeyCode.E)) && this.realTeam == 0)
             {
-                Debug.Log("Ajout Equipe");
                 this.realTeam = -1; // set dirty pour éviter le spam, sera ecrasé par le serveur
                 CmdSetRealTeam(team);
                 PlayerState.singleton.myTeam = team;
@@ -101,7 +101,6 @@ public class Player : NetworkBehaviour
 
             if ((Input.GetButtonDown("Fire2") || Input.GetKeyDown(KeyCode.R)) && this.realTeam != 0)
             {
-                Debug.Log("Suprresion Equipe");
                 CmdResetRealTeam();
                 PlayerState.singleton.myTeam = 0;
                 PlayerState.singleton.playerID = 0;
@@ -112,23 +111,19 @@ public class Player : NetworkBehaviour
         {
             if (Input.GetButtonDown("Fire3") && !isGivingRessource && !isTakingRessource)
             {
-                Debug.Log("Start Give Ressource to Base");
                 CmdStartGiveRessourceToBase();
             }
             else if (Input.GetButtonUp("Fire3") && isGivingRessource && !isTakingRessource)
             {
-                Debug.Log("Stop Give Ressource to Base");
                 CmdStopGiveRessourceToBase();
             }
 
             if (Input.GetButtonDown("Fire4") && !isGivingRessource && !isTakingRessource)
             {
-                Debug.Log("Start Take Ressource from Base");
                 CmdStartTakeRessourceFromBase();
             }
             else if (Input.GetButtonUp("Fire4") && !isGivingRessource && isTakingRessource)
             {
-                Debug.Log("Stop Take Ressource from Base");
                 CmdStopTakeRessourceFromBase();
             }
 
@@ -356,5 +351,17 @@ public class Player : NetworkBehaviour
         NetworkServer.Spawn(instance);
         
         this.ressourceCount -= ressourcePrefab.GetComponent<Ressource>().nbPressionGive;
+    }
+
+    [ClientRpc]
+    public void RpcStartBeingHacked()
+    {
+        Movement movement = GetComponent<Movement>();
+        movement.isHackedFor(6.5f);
+
+        if(!isLocalPlayer)
+            return;
+
+        audioSourceHackDuration.Play();
     }
 }
