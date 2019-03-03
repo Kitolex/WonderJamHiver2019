@@ -49,8 +49,6 @@ public class PublicNetworkManager : MonoBehaviour
     private int playerID;
     private string eventPublic;
 
-    private Text publicVow;
-
 
     public void Awake()
     {
@@ -74,8 +72,6 @@ public class PublicNetworkManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if(PlayerState.singleton.inGame && publicVow == null)
-            publicVow = GameObject.FindGameObjectWithTag("PublicVow").GetComponent<Text>();
 
         if (activeTimerForPublicToPlay)
         {
@@ -84,7 +80,6 @@ public class PublicNetworkManager : MonoBehaviour
             {
 
                 Debug.Log("A new Challenger In Comming");
-                StartCoroutine(ShowMessage("!! WARNING !! I sense a greater presence", new Color32(253, 165, 25, 255), 3));
                
                 StartCoroutine(LaunchPartie(namePartie));                          
                 activeTimerForPublicToPlay = false;
@@ -116,14 +111,6 @@ public class PublicNetworkManager : MonoBehaviour
 
     }
 
-    IEnumerator ShowMessage(string message, Color32 color, float delay)
-    {
-        publicVow.text = message;
-        publicVow.color = color;
-        publicVow.enabled = true;
-        yield return new WaitForSeconds(delay);
-        publicVow.enabled = false;
-    }
 
     public void ActiveLoop()
     {
@@ -161,7 +148,6 @@ public class PublicNetworkManager : MonoBehaviour
             if (p.playerID == this.playerID)
             {
                 
-               StartCoroutine(ShowMessage("!! DANGER !! Something incoming...", new Color32(200, 45, 45, 255), 4));
                 
             }
         }

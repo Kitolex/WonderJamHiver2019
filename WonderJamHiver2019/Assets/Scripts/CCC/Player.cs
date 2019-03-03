@@ -156,15 +156,10 @@ public class Player : NetworkBehaviour
             }
         }
 
-        spriteRenderer.material.SetInt("_Team", team);
+        //spriteRenderer.material.SetInt("_Team", team);
 
         if(!isServer)
             return;
-
-        if(isLocalPlayer && Input.GetKeyDown(KeyCode.Y))
-        {
-            RpcReceivedLightning();
-        }
 
         if(isGivingRessource)
         {
