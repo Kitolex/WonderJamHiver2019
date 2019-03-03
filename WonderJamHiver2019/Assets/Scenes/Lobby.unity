@@ -2523,6 +2523,11 @@ PrefabInstance:
       propertyPath: teamLobbyManager2
       value: 
       objectReference: {fileID: 482839967}
+    - target: {fileID: 6974651683134788948, guid: 937e277479408c64ab6847f967b2fb66,
+        type: 3}
+      propertyPath: countNeededPlayer
+      value: 2
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 937e277479408c64ab6847f967b2fb66, type: 3}
 --- !u!1 &1274319177 stripped
