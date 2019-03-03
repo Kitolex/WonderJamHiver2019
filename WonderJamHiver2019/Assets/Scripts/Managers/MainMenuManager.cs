@@ -12,8 +12,12 @@ public class MainMenuManager : MonoBehaviour
     public GameObject RejoindrePartiePanel;
 
     public InputField adresseServer;
+    public InputField namePartie;
 
     private NetworkManager networkManager;
+
+
+
 
     // Start is called before the first frame update
     void Start()
@@ -34,8 +38,20 @@ public class MainMenuManager : MonoBehaviour
 
         CreationPartiePanel.SetActive(true);
 
+        
+    }
+
+    public void CreateAndHostPartie()
+    {
+        PublicNetworkManager.singleton.active = true;
+        PublicNetworkManager.singleton.StartCoroutine(PublicNetworkManager.singleton.CreatePartie(namePartie.text));
+    }
+    public void HostPartie()
+    {
+        PublicNetworkManager.singleton.active = false;
         networkManager.StartHost();
     }
+
 
     public void RejoindrePartie()
     {
