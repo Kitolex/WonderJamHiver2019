@@ -198,7 +198,6 @@ public class Player : NetworkBehaviour
             this.playerID = LobbyManager.singleton.teamLobbyManager2.GetMyPlayerIdForThisGame();
             LobbyManager.singleton.teamLobbyManager2.nbInThisTeam++;
         }
-        //GetComponentInChildren<SpriteRenderer>().material.SetInt("_Team", team);
     }
 
     [Command]
@@ -212,7 +211,6 @@ public class Player : NetworkBehaviour
         if(team == 2)
             LobbyManager.singleton.teamLobbyManager2.nbInThisTeam--;
         this.playerID = 0;
-        //GetComponentInChildren<SpriteRenderer>().material.SetInt("_Team", team);
     }
 
     [Command]

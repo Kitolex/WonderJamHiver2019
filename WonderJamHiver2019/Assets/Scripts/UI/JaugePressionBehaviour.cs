@@ -23,6 +23,8 @@ public class JaugePressionBehaviour : MonoBehaviour, EventListener<LocalPlayerSt
         if (!localPlayer)
             return;
 
+        
+
         rTransf.rotation = Quaternion.Euler(0, 0, Mathf.Lerp(60, -60, (float)localPlayer.ressourceCount / (float)localPlayer.maxRessourceCount));
     }
 
