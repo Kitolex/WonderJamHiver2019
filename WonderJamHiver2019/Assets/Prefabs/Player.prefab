@@ -284,6 +284,11 @@ MonoBehaviour:
   audioSourceRessourceGive: {fileID: 472515074655543475}
   audioSourceRessourceTake: {fileID: 3515440109536483127}
   audioSourceHackDuration: {fileID: 1952540290842935829}
+  stundDurationLightning: 1
+  nbRessourceCapsuleDropWhenLightning: 3
+  lightningPrefabFX: {fileID: 1119297521503178, guid: 7f7546ce905c2714b99f5193e46239fd,
+    type: 3}
+  lightningSound: {fileID: 8300000, guid: 530dba29385c2f341988c11c3b8e7150, type: 3}
   volumePick: 0.15
   pick1: {fileID: 8300000, guid: b0ce0b72db4643f4b87d12ac0c07bc92, type: 3}
   pick2: {fileID: 8300000, guid: bda4c7205b744fc40bbac5b43af8dd65, type: 3}
