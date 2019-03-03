@@ -49,7 +49,7 @@ SpriteRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 1aa7bce88a6ab034690a02abb89abc67, type: 2}
+  - {fileID: 2100000, guid: 379122df4220e7a46ae71263c10106b5, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -263,6 +263,7 @@ MonoBehaviour:
   maxRessourceCount: 100
   team: 0
   realTeam: 0
+  playerID: 0
   isReady: 0
   enterTeamZone: 0
   isInBaseZone: 0
@@ -285,6 +286,10 @@ MonoBehaviour:
   acceleration: 8
   inputMinThreshold: 0.1
   minSpeedWhenInput: 1.1
+  speedMul_0_25: 0.96
+  speedMul_25_50: 0.985
+  speedMul_50_75: 1
+  speedMul_75_100: 1.035
   canMove: 1
   animator: {fileID: 327317419595634538}
   spriteRenderer: {fileID: 3522750688452588107}
