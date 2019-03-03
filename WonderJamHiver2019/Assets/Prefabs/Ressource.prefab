@@ -105,7 +105,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 99024ef355ac11c4a8eca06088a78787, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  nbPressionGive: 35
+  nbPressionGive: 15
   disableTimeOnCreation: 1
   collectable: 0
   jumpAtSpawn: 0

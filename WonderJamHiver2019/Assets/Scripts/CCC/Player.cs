@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Networking;
 using Events;
+using Random = UnityEngine.Random;
 
 public class Player : NetworkBehaviour
 {
@@ -49,6 +50,10 @@ public class Player : NetworkBehaviour
     public AudioSource audioSourceRessourceGive;
     public AudioSource audioSourceRessourceTake;
     public AudioSource audioSourceHackDuration;
+    public float stundDurationLightning = 1.0f;
+    public int nbRessourceCapsuleDropWhenLightning = 3;
+    public GameObject lightningPrefabFX;
+    public AudioClip lightningSound;
 
     [Header("Sounds")]
     public float volumePick = 0.15f;
@@ -155,6 +160,11 @@ public class Player : NetworkBehaviour
 
         if(!isServer)
             return;
+
+        if(isLocalPlayer && Input.GetKeyDown(KeyCode.Y))
+        {
+            RpcReceivedLightning();
+        }
 
         if(isGivingRessource)
         {
@@ -340,19 +350,32 @@ public class Player : NetworkBehaviour
     [Command]
     public void CmdDropRessource()
     {
-        if (ressourceCount <= ressourcePrefab.GetComponent<Ressource>().nbPressionGive)
+        DropRessource(1);
+    }
+
+    [Command]
+    public void CmdDropMultipleRessource(int nb)
+    {
+        DropRessource(nb);
+    }
+
+    public void DropRessource(int nb)
+    {
+        for(int i=0; i<nb; i++)
+        {
+            if (ressourceCount <= ressourcePrefab.GetComponent<Ressource>().nbPressionGive)
             return;
 
-
-        GameObject instance = Instantiate(ressourcePrefab);
-        instance.transform.position = this.transform.position;
-        if (capsuleCollider)
-        {
-            instance.transform.position += new Vector3(0, capsuleCollider.height, 0);
+            GameObject instance = Instantiate(ressourcePrefab);
+            instance.transform.position = this.transform.position;
+            if (capsuleCollider)
+            {
+                instance.transform.position += new Vector3(0, capsuleCollider.height, 0);
+            }
+            NetworkServer.Spawn(instance);
+            
+            this.ressourceCount -= ressourcePrefab.GetComponent<Ressource>().nbPressionGive;
         }
-        NetworkServer.Spawn(instance);
-        
-        this.ressourceCount -= ressourcePrefab.GetComponent<Ressource>().nbPressionGive;
     }
 
     [ClientRpc]
@@ -365,5 +388,22 @@ public class Player : NetworkBehaviour
             return;
 
         audioSourceHackDuration.Play();
+    }
+
+    [ClientRpc]
+    public void RpcReceivedLightning()
+    {
+        Movement movement = GetComponent<Movement>();
+        movement.isStunedFor(stundDurationLightning);
+        CmdDropMultipleRessource(nbRessourceCapsuleDropWhenLightning);
+        Instantiate(lightningPrefabFX, this.transform.position, Quaternion.identity);
+        audioSourceRessourceCollect.PlayOneShot(lightningSound);
+
+        if(isLocalPlayer)
+        {
+            Rigidbody rb = GetComponent<Rigidbody>();
+            rb.velocity = Vector3.zero;
+            rb.AddForce(Vector3.left * Random.Range(-50.0f, 50.0f) + Vector3.forward * Random.Range(-50.0f, 50.0f), ForceMode.Impulse);
+        }
     }
 }

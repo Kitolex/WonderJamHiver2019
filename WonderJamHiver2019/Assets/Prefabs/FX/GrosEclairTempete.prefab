@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 4807263234827876}
   - component: {fileID: 120814311797974590}
   - component: {fileID: 114052542769016846}
+  - component: {fileID: 1895334762910010785}
   m_Layer: 0
   m_Name: GrosEclairTempete
   m_TagString: Untagged
@@ -26,7 +27,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1119297521503178}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -1.4594905, y: -5.2576046, z: -5.1794534}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
@@ -373,7 +374,7 @@ LineRenderer:
       ctime6: 0
       ctime7: 0
       atime0: 0
-      atime1: 65535
+      atime1: 65342
       atime2: 0
       atime3: 0
       atime4: 0
@@ -389,7 +390,7 @@ LineRenderer:
     textureMode: 0
     shadowBias: 0
     generateLightingData: 0
-  m_UseWorldSpace: 1
+  m_UseWorldSpace: 0
   m_Loop: 0
 --- !u!114 &114052542769016846
 MonoBehaviour:
@@ -404,13 +405,26 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   StartObject: {fileID: 0}
-  StartPosition: {x: 0, y: 100, z: 0}
+  StartPosition: {x: 0, y: 50, z: 0}
   EndObject: {fileID: 0}
   EndPosition: {x: 0, y: 0, z: 0}
   Generations: 8
   Duration: 0.02
-  ChaosFactor: 0.2
+  ChaosFactor: 0.113
   ManualMode: 0
   Rows: 1
   Columns: 1
   AnimationMode: 0
+--- !u!114 &1895334762910010785
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1119297521503178}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 61c7f8643c4e86c4aa8c34c6be52933c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  delayUntilDestroy: 0.25
