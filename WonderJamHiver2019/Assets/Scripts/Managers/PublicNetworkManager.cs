@@ -5,9 +5,26 @@ using UnityEngine.Networking;
 
 public class PublicNetworkManager : MonoBehaviour
 {
-    private const string URL_VOTE = "http://localhost:5000/api/vote";
-    private const string URL_CREATE_PARTIE = "http://localhost:5000/api/create";
-    private const string URL_DELETE_PARTIE = "http://localhost:5000/api/partie";
+    private const string URL_VOTE = "https://kgames.valereplantevin.ca/api/vote";
+    private const string URL_CREATE_PARTIE = "https://kgames.valereplantevin.ca/api/create";
+    private const string URL_DELETE_PARTIE = "https://kgames.valereplantevin.ca/api/partie";
+
+    private NetworkManager networkManager;
+
+    public string namePartie;
+
+    public static PublicNetworkManager singleton;
+
+    
+
+    public void Awake()
+    {
+        if (null == PublicNetworkManager.singleton)
+        {
+            PublicNetworkManager.singleton = this;
+        }
+        DontDestroyOnLoad(this.gameObject);
+    }
 
     // Start is called before the first frame update
     void Start()
@@ -20,10 +37,12 @@ public class PublicNetworkManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        
+        networkManager = GameObject.FindGameObjectWithTag("NetworkManager").GetComponent<NetworkManager>();
     }
 
-    IEnumerator CreatePartie(string namePartie)
+
+
+    public IEnumerator CreatePartie(string namePartie)
     {
         string URL = URL_CREATE_PARTIE + "/" +namePartie;
         UnityWebRequest www = UnityWebRequest.Post(URL,"");
@@ -34,7 +53,8 @@ public class PublicNetworkManager : MonoBehaviour
         }
         else
         {
-            Debug.Log("Form upload complete!");
+            this.namePartie = namePartie;
+            networkManager.StartHost();
         }
     }
 
