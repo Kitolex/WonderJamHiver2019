@@ -112,51 +112,55 @@ public class Player : NetworkBehaviour
             }
         }
 
-        if(isInBaseZone)
+        if(isLocalPlayer)
         {
-            if (Input.GetButtonDown("Fire3") && !isGivingRessource && !isTakingRessource)
+            if(isInBaseZone)
             {
-                CmdStartGiveRessourceToBase();
-            }
-            else if (Input.GetButtonUp("Fire3") && isGivingRessource && !isTakingRessource)
-            {
-                CmdStopGiveRessourceToBase();
-            }
+                if (Input.GetButtonDown("Fire3") && !isGivingRessource && !isTakingRessource)
+                {
+                    Debug.Log("zqsdefhujklmp");
+                    CmdStartGiveRessourceToBase();
+                }
+                else if (Input.GetButtonUp("Fire3") && isGivingRessource && !isTakingRessource)
+                {
+                    CmdStopGiveRessourceToBase();
+                }
 
-            if (Input.GetButtonDown("Fire4") && !isGivingRessource && !isTakingRessource)
-            {
-                CmdStartTakeRessourceFromBase();
-            }
-            else if (Input.GetButtonUp("Fire4") && !isGivingRessource && isTakingRessource)
-            {
-                CmdStopTakeRessourceFromBase();
-            }
+                if (Input.GetButtonDown("Fire4") && !isGivingRessource && !isTakingRessource)
+                {
+                    CmdStartTakeRessourceFromBase();
+                }
+                else if (Input.GetButtonUp("Fire4") && !isGivingRessource && isTakingRessource)
+                {
+                    CmdStopTakeRessourceFromBase();
+                }
 
-            if(ressourceCount == 0 && isGivingRessource)
-            {
-                CmdStopGiveRessourceToBase();
-            }
+                if(ressourceCount == 0 && isGivingRessource)
+                {
+                    CmdStopGiveRessourceToBase();
+                }
 
-            if(PlayerState.singleton.myBase.currentPression == 0 && isTakingRessource)
+                if(PlayerState.singleton.myBase.currentPression == 0 && isTakingRessource)
+                {
+                    CmdStopTakeRessourceFromBase();
+                }
+            }
+            else
             {
-                CmdStopTakeRessourceFromBase();
+                if(isGivingRessource)
+                {
+                    isGivingRessource = false;
+                    CmdStopGiveRessourceToBase();
+                }
+                if(isTakingRessource)
+                {
+                    isTakingRessource = false;
+                    CmdStopTakeRessourceFromBase();
+                }
             }
         }
-        else
-        {
-            if(isGivingRessource)
-            {
-                isGivingRessource = false;
-                CmdStopGiveRessourceToBase();
-            }
-            if(isTakingRessource)
-            {
-                isTakingRessource = false;
-                CmdStopTakeRessourceFromBase();
-            }
-        }
 
-        //spriteRenderer.material.SetInt("_Team", team);
+        spriteRenderer.material.SetInt("_Team", team);
 
         if(!isServer)
             return;
