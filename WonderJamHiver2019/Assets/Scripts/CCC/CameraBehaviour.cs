@@ -94,5 +94,6 @@ public class CameraBehaviour : MonoBehaviour, EventListener<EndGameEvent>
             transform.position = Vector3.Lerp(initialPosition, destination, (Time.time - timeStart) / 2);
             yield return null;
         }
+
     }
 }
