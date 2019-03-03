@@ -194,7 +194,7 @@ public class Player : NetworkBehaviour
     public void CmdSetTeam(int team)
     {
         this.team = team;
-        GameObject.FindGameObjectWithTag("LobbyManager").GetComponent<LobbyManager>().RemoveReadyPlayer();
+        //GameObject.FindGameObjectWithTag("LobbyManager").GetComponent<LobbyManager>().RemoveReadyPlayer();
         GetComponentInChildren<SpriteRenderer>().material.SetInt("_Team", team);
     }
 
