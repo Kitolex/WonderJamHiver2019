@@ -3901,14 +3901,6 @@ MonoBehaviour:
   CameraOffset: {x: 0, y: 0, z: -3}
   SmoothSpeed: 0.1
   IsFollowingPlayer: 1
---- !u!81 &1642793867120847774
-AudioListener:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1642793867120847775}
-  m_Enabled: 1
 --- !u!1 &1642793867120847775
 GameObject:
   m_ObjectHideFlags: 0
@@ -3919,7 +3911,6 @@ GameObject:
   m_Component:
   - component: {fileID: 1642793867120847760}
   - component: {fileID: 1642793867120847761}
-  - component: {fileID: 1642793867120847774}
   - component: {fileID: 1642793867120847763}
   - component: {fileID: 5981259759210476866}
   m_Layer: 0
