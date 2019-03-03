@@ -1,5 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using System.Text.RegularExpressions;
 using UnityEngine;
 using UnityEngine.Networking;
 
@@ -8,6 +9,7 @@ public class PublicNetworkManager : MonoBehaviour
     private const string URL_VOTE = "https://kgames.valereplantevin.ca/api/vote";
     private const string URL_CREATE_PARTIE = "https://kgames.valereplantevin.ca/api/create";
     private const string URL_DELETE_PARTIE = "https://kgames.valereplantevin.ca/api/partie";
+    private const string URL_LAUNCH_PARTIE = "https://kgames.valereplantevin.ca/api/launch";
 
     private NetworkManager networkManager;
 
@@ -17,7 +19,35 @@ public class PublicNetworkManager : MonoBehaviour
 
     public bool active;
 
-    
+
+
+    private bool activeTimerForPublicToPlay;
+
+    public float minTimeToPublicPlay;
+
+    private float timeLeftToPublicPlay;
+
+
+
+    private bool activeTimerBetween;
+
+    public float timeBetweenEvent;
+
+    private float timeLeftBetweenEvent;
+
+
+
+
+    private bool activeTimerGetter;
+
+    public float timeGetter;
+
+    private float timeLeftGetter;
+
+
+    private int playerID;
+    private string eventPublic;
+
 
     public void Awake()
     {
@@ -35,14 +65,88 @@ public class PublicNetworkManager : MonoBehaviour
         // StartCoroutine(CreatePartie("Partie1")); 
         //StartCoroutine(GetChoicePublic("Partie1")); 
         //StartCoroutine(DeleteParty("Partie1"));
+        networkManager = GameObject.FindGameObjectWithTag("NetworkManager").GetComponent<NetworkManager>();
     }
 
     // Update is called once per frame
     void Update()
     {
-        networkManager = GameObject.FindGameObjectWithTag("NetworkManager").GetComponent<NetworkManager>();
+        if (activeTimerForPublicToPlay)
+        {
+            timeLeftToPublicPlay -= Time.deltaTime;
+            if (timeLeftToPublicPlay < 0)
+            {
+                GestionLoop();
+                Debug.Log("A new Challenger In Comming");
+                activeTimerForPublicToPlay = false;
+                StartCoroutine(LaunchPartie(namePartie));
+            }
+        }
+
+        if (activeTimerBetween)
+        {
+            timeLeftBetweenEvent -= Time.deltaTime;
+            if (timeLeftBetweenEvent < 0)
+            {
+                Debug.Log("GO EVENT");
+                ApplyEventOnPlayer();
+                activeTimerBetween = false;
+            }
+        }
+
+        if (activeTimerGetter)
+        {
+            timeLeftGetter -= Time.deltaTime;
+            if (timeLeftGetter < 0)
+            {
+                Debug.Log("GO Get choice");
+                StartCoroutine(GetChoicePublic(namePartie));
+                activeTimerGetter = false;
+            }
+        }
+
     }
 
+
+    public void ActiveLoop()
+    {
+        timeLeftToPublicPlay = minTimeToPublicPlay;
+        activeTimerForPublicToPlay = true;
+    }
+
+    public void GestionLoop()
+    {
+        Debug.Log("DebutLoop");
+        StartCoroutine(GetChoicePublic(namePartie));
+    }
+
+    public void ActiveEvent(string eventPublic)
+    {
+        Debug.Log("Debut Syteme : " + eventPublic);
+        activeTimerBetween = true;
+
+        string[] action = eventPublic.Split(':');
+
+        playerID = int.Parse(action[0].Substring(action[0].Length - 1));
+        Debug.Log(playerID);
+        eventPublic = action[1];
+        Debug.Log(eventPublic);
+
+    }
+
+    public void ApplyEventOnPlayer()
+    {
+        foreach (GameObject go in GameObject.FindGameObjectsWithTag("Player")) {
+            Player p = go.GetComponent<Player>();
+            if (p.playerID==this.playerID)
+            {
+                if (eventPublic.Equals("Reverse"))
+                {
+                    //TODO : tjfjcb
+                }
+            }
+        }
+    }
 
 
     public IEnumerator CreatePartie(string namePartie)
@@ -61,10 +165,10 @@ public class PublicNetworkManager : MonoBehaviour
         }
     }
 
-    IEnumerator GetChoicePublic(string namePartie)
+    public IEnumerator LaunchPartie(string namePartie)
     {
-        string URL = URL_VOTE+"/"+ namePartie;
-        UnityWebRequest www = UnityWebRequest.Get(URL);
+        string URL = URL_LAUNCH_PARTIE + "/" + namePartie;
+        UnityWebRequest www = UnityWebRequest.Post(URL, "");
         yield return www.SendWebRequest();
         if (www.isNetworkError || www.isHttpError)
         {
@@ -72,7 +176,25 @@ public class PublicNetworkManager : MonoBehaviour
         }
         else
         {
-            Debug.Log(www.downloadHandler.text);
+            GestionLoop();
+        }
+    }
+
+    IEnumerator GetChoicePublic(string namePartie)
+    {
+        string URL = URL_VOTE+"/"+ namePartie;
+        Debug.Log(URL);
+        UnityWebRequest www = UnityWebRequest.Get(URL);
+        yield return www.SendWebRequest();
+        if (www.isNetworkError || www.isHttpError)
+        {
+            Debug.Log("Rien Trouve comme Choix");
+            timeLeftGetter = timeGetter;
+            activeTimerGetter = true;
+        }
+        else
+        {
+            ActiveEvent(www.downloadHandler.text);
         }
 
     }

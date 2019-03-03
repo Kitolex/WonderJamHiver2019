@@ -34,6 +34,11 @@ public class MainGameManager : NetworkBehaviour
         networkManager = GameObject.FindGameObjectWithTag("NetworkManager").GetComponent<NetworkManager>();
         nextSpawnTeam1 = 0;
         nextSpawnTeam2 = 0;
+        if (PublicNetworkManager.singleton.active  && isServer)
+        {
+            PublicNetworkManager.singleton.ActiveLoop();
+        }
+        
     }
 
     // Update is called once per frame
