@@ -35,7 +35,7 @@ public class LobbyManager : NetworkBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (countReadyPlayer==countNeededPlayer)
+        if (countReadyPlayer >= countNeededPlayer)
         {
             if (Input.GetButtonDown("Start"))
             {
@@ -51,7 +51,7 @@ public class LobbyManager : NetworkBehaviour
                     countReadyPlayerForChangeScene++;
             }
 
-            if(countReadyPlayerForChangeScene == countNeededPlayer)
+            if(countReadyPlayerForChangeScene >= countNeededPlayer)
             {
                 networkManager.ServerChangeScene("MainGame2");
             }
@@ -61,13 +61,13 @@ public class LobbyManager : NetworkBehaviour
     public void AddReadyPlayer()
     {
         countReadyPlayer++;
-        if (countReadyPlayer == countNeededPlayer && isServer)
+        if (countReadyPlayer >= countNeededPlayer && isServer)
             UILaunch.SetTrigger("Display");
     }
 
     public void RemoveReadyPlayer()
     {
-        if (countReadyPlayer == countNeededPlayer && isServer)
+        if (countReadyPlayer >= countNeededPlayer && isServer)
             UILaunch.SetTrigger("Hide");
         countReadyPlayer--;
     }
