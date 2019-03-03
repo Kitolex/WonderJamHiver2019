@@ -65,7 +65,7 @@ public class MainGameManager : NetworkBehaviour
                 countReadyPlayerForChangeScene++;
         }
 
-        if(countReadyPlayerForChangeScene == countNeededPlayer)
+        if(countReadyPlayerForChangeScene == countNeededPlayer) // !!!!!!!! AJOUTER UN DELAIS POUR VOIR L'ANIMATION DE LA FUSEE !!!!!!!!!!!!!!!!!!!!!!!! 
         {
             networkManager.ServerChangeScene("SceneFin");
         }

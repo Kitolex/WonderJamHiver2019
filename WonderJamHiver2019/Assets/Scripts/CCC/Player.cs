@@ -295,7 +295,11 @@ public class Player : NetworkBehaviour
         PlayerState.singleton.inGame = false;
         PlayerState.singleton.inEndGame = true;
         if(isLocalPlayer)
+        {
+            PlayerState.singleton.scoreTeam1 = scoreTeam1;
+            PlayerState.singleton.scoreTeam2 = scoreTeam2;
             CmdIsReady();
+        }
     }
 
     [Command]
