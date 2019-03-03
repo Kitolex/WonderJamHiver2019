@@ -154,13 +154,6 @@ public class Player : NetworkBehaviour
         if(!isServer)
             return;
 
-        
-        
-        if(Input.GetKeyDown(KeyCode.H))
-        {
-            RpcStartBeingHacked();
-        }
-
         if(isGivingRessource)
         {
             if(Time.time > timerInteractionBase)
