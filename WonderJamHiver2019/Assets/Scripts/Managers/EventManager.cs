@@ -32,6 +32,15 @@ namespace Events
         }
     }
 
+    public struct EndGameEvent
+    {
+        public int winnerTeam;
+        public EndGameEvent(int winner)
+        {
+            winnerTeam = winner;
+        }
+    }
+
     public struct MMSfxEvent
     {
         public AudioClip ClipToPlay;

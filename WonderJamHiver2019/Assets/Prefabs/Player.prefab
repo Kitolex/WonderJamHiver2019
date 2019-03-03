@@ -144,7 +144,7 @@ CapsuleCollider:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4614687179111478197}
-  m_Material: {fileID: 0}
+  m_Material: {fileID: 13400000, guid: 4c2b03d247516094aa52f31127796608, type: 2}
   m_IsTrigger: 0
   m_Enabled: 1
   m_Radius: 0.39533466
@@ -179,9 +179,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a1dbac32a7c71c2448bbdbd0c66c4ea3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  DashSpeed: 700
+  DashSpeed: 35
   DashCooldown: 1
-  InputReactivationCooldowwn: 0.5
+  InputReactivationCooldowwn: 0.4
   ImpactForce: 900
   StunedDuration: 1.5
   minDashEffect: 0.3
@@ -281,8 +281,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0aa5448ffb56ad1459a278b1d41a59db, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  movementSpeed: 7
-  acceleration: 6
+  movementSpeed: 20
+  acceleration: 8
   inputMinThreshold: 0.1
   minSpeedWhenInput: 1.1
   canMove: 1

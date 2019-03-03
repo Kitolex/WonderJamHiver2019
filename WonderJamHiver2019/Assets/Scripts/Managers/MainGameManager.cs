@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Networking;
+using Events;
 
 public class MainGameManager : NetworkBehaviour
 {
@@ -43,7 +44,7 @@ public class MainGameManager : NetworkBehaviour
 
         if(teamBase1.currentPression >= teamBase1.neededPressionToWin)
         {
-            // TEAM 1 WIN
+            EventManager.TriggerEvent<EndGameEvent>(new EndGameEvent(1));
             foreach(GameObject go in GameObject.FindGameObjectsWithTag("Player")) {
               go.GetComponent<Player>().RpcPrepareToEndGame(teamBase1.currentPression, teamBase2.currentPression);
             }
@@ -51,8 +52,8 @@ public class MainGameManager : NetworkBehaviour
 
         else if(teamBase2.currentPression >= teamBase2.neededPressionToWin)
         {
-            // TEAM 2 WIN
-            foreach(GameObject go in GameObject.FindGameObjectsWithTag("Player")) {
+            EventManager.TriggerEvent<EndGameEvent>(new EndGameEvent(2));
+            foreach (GameObject go in GameObject.FindGameObjectsWithTag("Player")) {
               go.GetComponent<Player>().RpcPrepareToEndGame(teamBase1.currentPression, teamBase2.currentPression);
             }
         }

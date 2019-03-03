@@ -8,7 +8,7 @@ public class Movement : NetworkBehaviour
     float horizontalAxis;
     float verticalAxis;
 
-    [Range(1,10)]
+    [Range(1,30)]
     public float movementSpeed;
     public float acceleration;
     public float inputMinThreshold = 0.1f;

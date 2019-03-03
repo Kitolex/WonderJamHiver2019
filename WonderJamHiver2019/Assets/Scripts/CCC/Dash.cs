@@ -126,7 +126,7 @@ public class Dash : NetworkBehaviour
     {
         Vector3 direction = rb.velocity.normalized;
         rb.velocity = Vector3.zero;
-        rb.AddForce(direction * DashSpeed);
+        rb.AddForce(direction * DashSpeed, ForceMode.Impulse);
         animator.SetTrigger("startDashing");
         animator.SetBool("isDoneDashing", false);
     }
@@ -135,7 +135,7 @@ public class Dash : NetworkBehaviour
     void RpcCasseToi(Vector3 direction, float dashEffectPercentage)
     {
         rb.velocity = Vector3.zero;
-        rb.AddForce(direction * ImpactForce * dashEffectPercentage);
+        rb.AddForce(direction * ImpactForce * dashEffectPercentage, ForceMode.Impulse);
         movement.isStunedFor(StunedDuration);
         player.CmdDropRessource();
     }

@@ -2,10 +2,13 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Networking;
+using Events;
 
-public class CameraBehaviour : MonoBehaviour
+public class CameraBehaviour : MonoBehaviour, EventListener<EndGameEvent>
 {
     GameObject player;
+    public GameObject Base1;
+    public GameObject Base2;
     Camera camera;
 
     public float Distance;
@@ -46,5 +49,50 @@ public class CameraBehaviour : MonoBehaviour
     public void AssignPlayer(GameObject playerGameObject)
     {
         player = playerGameObject;
+    }
+
+
+    void OnEnable()
+    {
+     	this.EventStartListening<EndGameEvent>();
+    }
+    void OnDisable()
+    {
+     	this.EventStopListening<EndGameEvent>();
+    }
+
+    public void OnEvent(EndGameEvent eventType)
+    {
+        IsFollowingPlayer = false;
+        StartCoroutine(EndGameCoroutine(eventType.winnerTeam));
+    }
+
+    IEnumerator EndGameCoroutine(int winnerTeam)
+    {
+        float timeStart = Time.time;
+        Vector3 initialPosition = transform.position;
+        Vector3 destination;
+
+        if(winnerTeam == 1)
+        {
+            destination = new Vector3(0, 0, -Distance);
+            destination = Quaternion.AngleAxis(Angle, Vector3.right) * destination;
+            destination = Base1.transform.position + destination + CameraOffset;
+            transform.rotation = Quaternion.Euler(new Vector3(Angle, 0, 0));
+        }
+        else
+        {
+            destination = new Vector3(0, 0, -Distance);
+            destination = Quaternion.AngleAxis(Angle, Vector3.right) * destination;
+            destination = Base2.transform.position + destination + CameraOffset;
+            transform.rotation = Quaternion.Euler(new Vector3(Angle, 0, 0));
+        }
+         
+
+        while ((Time.time - timeStart) < 2)
+        {
+            transform.position = Vector3.Lerp(initialPosition, destination, (Time.time - timeStart) / 2);
+            yield return null;
+        }
     }
 }
